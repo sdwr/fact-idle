@@ -1,0 +1,29 @@
+.board-tile-container {
+  width: 4rem;
+  height: 4rem;
+
+  box-sizing: border-box;
+
+  border: 2px solid;
+  border-color: #ffd285 #784b00 #784b00 #ffd285;
+  box-shadow: none;
+  &:hover {
+    border-color: #784b00 #ffd285 #ffd285 #784b00;
+  }
+
+  .board-tile-content {
+    height: 100%;
+  }
+
+  .board-tile-empty {
+    background-color: #ffa711;
+  }
+
+  .board-tile-content-1 {
+    background-color: #784b00;
+  }
+
+  .board-tile-content-2 {
+    background-color: #ffd285;
+  }
+}

@@ -1,0 +1,14 @@
+$tile-width: 4rem;
+
+.home-board-panel {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  .home-board-panel-inner {
+    display: flex;
+    flex-wrap: wrap;
+    width: $tile-width * 5;
+  }
+}

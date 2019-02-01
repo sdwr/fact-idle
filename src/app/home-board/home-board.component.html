@@ -1,0 +1,10 @@
+<div class="home-board-panel">
+  <div class="home-board-panel-inner">
+    <ng-container *ngIf="tiles$ | async as tiles">
+      <app-board-tile
+        *ngFor="let tile of tiles; trackBy:tile?.id" [tile]="tile"
+        (clickTile)="clickTile($event)" (rightClickTile)="rightClickTile($event)">
+      </app-board-tile>
+    </ng-container>
+  </div>
+</div>
