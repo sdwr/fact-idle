@@ -9,7 +9,6 @@ import {CreateTiles, UpdateTile} from './game.actions';
 })
 export class GameService {
 
-
   constructor(private store: Store) {}
 
   getTiles(): Observable<Tile[]> {
@@ -23,6 +22,5 @@ export class GameService {
   updateTile(tile: Tile): Observable<any> {
     return this.store.dispatch(new UpdateTile(tile));
   }
-
 
 }

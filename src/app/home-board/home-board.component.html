@@ -3,7 +3,10 @@
     <ng-container *ngIf="tiles$ | async as tiles">
       <app-board-tile
         *ngFor="let tile of tiles; trackBy:tile?.id" [tile]="tile"
-        (clickTile)="clickTile($event)" (rightClickTile)="rightClickTile($event)">
+        (rightClickTile)="rightClickTile($event)"
+        (mousedownTile)="mousedownTile($event)"
+        (mouseupTile)="mouseupTile($event)"
+        (mousemoveTile)="mousemoveTile($event)">
       </app-board-tile>
     </ng-container>
   </div>

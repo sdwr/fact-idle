@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GameStateService} from '../game-state.service';
 import {Tile} from '../models/tile.model';
-import {Observable} from 'rxjs';
+import {Observable, BehaviorSubject} from 'rxjs';
 import {GameService} from '../store/game.service';
 
 @Component({
@@ -12,6 +12,7 @@ import {GameService} from '../store/game.service';
 export class HomeBoardComponent implements OnInit {
 
   tiles$: Observable<Tile[]>;
+  path$: BehaviorSubject<number[]>;
 
   constructor(private gameStateService: GameStateService,
               private gameService: GameService) {
@@ -19,16 +20,24 @@ export class HomeBoardComponent implements OnInit {
 
   ngOnInit() {
     this.tiles$ = this.gameService.getTiles();
-  }
-
-  clickTile( tile: Tile): void {
-    tile.contains === 1 ? tile.contains = 0 : tile.contains = 1;
-    this.gameService.updateTile(tile);
+    this.path$ = this.gameStateService.getPath();
   }
 
   rightClickTile( tile: Tile): void {
     tile.contains = 2;
     this.gameService.updateTile(tile);
+  }
+
+  mousedownTile( tile: Tile): void {
+    this.gameStateService.addToPath(tile.id);
+  }
+
+  mouseupTile( tile: Tile): void {
+    if (this.path$.value)
+  }
+
+  mousemoveTile( tile: Tile): void {
+
   }
 
 }
