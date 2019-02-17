@@ -39,7 +39,7 @@ export class BoardTileComponent implements OnInit {
     event.preventDefault();
   }
 
-  @HostListener('mousemove', ['$event'])
+  @HostListener('mouseover', ['$event'])
   public handleMouseover( event: MouseEvent ): void {
     this.mouseoverTile.emit(this.tile);
     event.preventDefault();

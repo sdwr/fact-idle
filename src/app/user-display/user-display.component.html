@@ -1,0 +1,8 @@
+<div class="user-display-content">
+	<ng-container *ngIf="money$ | async as money">
+		${{money}}
+	</ng-container>
+	<ng-container *ngIf="energy$ | async as energy">
+		E{{energy}}
+	</ng-container>
+</div>

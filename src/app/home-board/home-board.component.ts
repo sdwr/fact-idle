@@ -33,11 +33,17 @@ export class HomeBoardComponent implements OnInit {
   }
 
   mouseupTile( tile: Tile): void {
-    if (this.path$.value)
+    if (this.path$.value.length > 1) {
+      this.gameStateService.handlePath(this.path$.value);
+    }
+
+    this.gameStateService.resetPath();
   }
 
-  mousemoveTile( tile: Tile): void {
-
+  mouseoverTile( tile: Tile): void {
+    if (!this.path$.value.find(t => t === tile.id)) {
+      this.gameStateService.addToPath(tile.id);
+    } 
   }
 
 }

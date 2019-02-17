@@ -1,3 +1,10 @@
-<p>
-  home-buildings works!
-</p>
+<div class="home-buildings-panel">
+	<div class="home-buildings-panel-inner">
+		<ng-container *ngIf="buildings$ | async as buildings">
+			<app-building-tile
+				*ngFor="let building of buildings; trackBy:building?.id" [building]="building">
+					
+			</app-building-tile>
+		</ng-container>
+	</div>
+</div>

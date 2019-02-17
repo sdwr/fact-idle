@@ -11,6 +11,8 @@ import { BoardTileComponent } from './board-tile/board-tile.component';
 
 import {NgxsModule} from '@ngxs/store';
 import {TileState} from './store/game.state';
+import { BuildingTileComponent } from './building-tile/building-tile.component';
+import { UserDisplayComponent } from './user-display/user-display.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import {TileState} from './store/game.state';
     HomeBoardComponent,
     HomeBuildingsComponent,
     HomeViewComponent,
-    BoardTileComponent
+    BoardTileComponent,
+    BuildingTileComponent,
+    UserDisplayComponent
   ],
   imports: [
     NgxsModule.forRoot([TileState]),

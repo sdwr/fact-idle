@@ -1,0 +1,21 @@
+.building-tile-container {
+  width: 5rem;
+  height: 5rem;
+
+  box-sizing: border-box;
+
+  border: 2px solid;
+  border-color: #ffd285 #784b00 #784b00 #ffd285;
+  box-shadow: none;
+  &:hover {
+    border-color: #784b00 #ffd285 #ffd285 #784b00;
+  }
+
+  .building-tile-content {
+    height: 100%;
+  }
+
+  .building-tile-empty {
+    background-color: #ffa711;
+  }
+}
