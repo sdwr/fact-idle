@@ -14,7 +14,9 @@ export class UserStateService {
 	moneyPerMinute: number;
 	energyPerMinute: number;
 
-	time: Date
+	time: Date;
+
+  
 
   constructor(private gameService: GameService) {
   	this.time = new Date();

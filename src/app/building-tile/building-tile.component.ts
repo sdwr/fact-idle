@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Building } from '../models/building.model';
 
 @Component({
@@ -9,6 +9,8 @@ import { Building } from '../models/building.model';
 export class BuildingTileComponent implements OnInit {
 
 	@Input() building: Building;
+
+	@Output() mousedownBuilding = new EventEmitter<Building>();
 	
   constructor() { }
 

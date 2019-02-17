@@ -15,6 +15,10 @@ export class GameService {
     return this.store.select(state => state.tiles);
   }
 
+  getTilesSnapshot(): Tile[] {
+    return this.store.selectSnapshot(state => state.tiles);
+  }
+
   createTiles(tiles: Tile[]): Observable<any> {
     return this.store.dispatch(new CreateTiles(tiles));
   }
