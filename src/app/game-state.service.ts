@@ -66,8 +66,6 @@ export class GameStateService {
     newPath.push(path[0]);
     path.forEach((tileId, i) => tileChangeDict[tileId] = newPath[i]);
 
-    console.log(tileChangeDict);
-
     let tiles = this.gameService.getTilesSnapshot();
     let newTiles = tiles.map(t => {
       if (tileChangeDict[t.id]) {

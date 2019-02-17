@@ -35,7 +35,6 @@ export class HomeBoardComponent implements OnInit {
 
   mouseupTile( tile: Tile): void {
     if (this.path$.value.length > 1) {
-      console.log(this.path$.value);
       this.gameStateService.handlePath(this.path$.value);
     }
 
