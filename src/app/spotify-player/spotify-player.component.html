@@ -1,3 +1,19 @@
-<p>
-  spotify-player works!
-</p>
+<div class="player-container" *ngIf="playContext">
+	<img src={{playContext.item.album.images[0].url}} class="now-playing-img">
+	<div class="now-playing-side">
+		<div class="now-playing-name">
+			{{playContext.item.name}}
+		</div>
+		<div class="now-playing-artist">
+			{{playContext.item.artists[0].name}}
+		</div>
+		<div class="now-playing-status">
+			{{playContext.is_playing ? 'Playing' : 'Paused'}}
+		</div>
+		<div class="now-playing-progress">
+			<div class="progress-bar" 
+					 [ngStyle]="{'width' : '' + playContext.progress_ms * 100 / playContext.item.duration_ms + '%'}">
+			</div>
+		</div>
+	</div>
+</div>

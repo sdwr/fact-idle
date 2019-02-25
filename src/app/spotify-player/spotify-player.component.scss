@@ -1,0 +1,39 @@
+
+.player-container {
+	border: 0.2em solid #0b0;
+	width: 250px;
+	display:flex;
+
+}
+
+.now-playing-img {
+	height:60px;
+	width:60px;
+}
+
+.now-playing-side {
+}
+
+.now-playing-name {
+	overflow:hidden;
+}
+
+.now-playing-artist {
+	overflow:hidden;
+}
+
+.now-playing-status {
+	
+}
+
+.now-playing-progress {
+	border: 0.15em solid #bbf;
+	height: 1em;
+	width:100%;
+}
+
+.progress-bar {
+	background-color: #bbf;
+	border: 0.1em solid transparent;
+	height: 0.75em;
+}

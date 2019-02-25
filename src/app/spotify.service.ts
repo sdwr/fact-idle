@@ -67,5 +67,9 @@ export class SpotifyService {
     return this.spotifyApi.getMe();
   }
 
+  getCurrentlyPlaying() {
+    return this.spotifyApi.getMyCurrentPlaybackState();
+  }
+
 
 }

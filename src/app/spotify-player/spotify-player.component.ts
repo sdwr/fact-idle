@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SpotifyService } from '../spotify.service';
+
 @Component({
   selector: 'app-spotify-player',
   templateUrl: './spotify-player.component.html',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SpotifyPlayerComponent implements OnInit {
 
-  constructor() { }
+	readonly REFRESH_TIME = 5000;
+
+	playContext: any;
+
+  constructor(private spotifyService: SpotifyService) { }
 
   ngOnInit() {
+  	this.updateLoop();
+  }
+
+  updateLoop() {
+  	this.updateContext();
+  	setTimeout(() => this.updateLoop(), this.REFRESH_TIME);
+  }
+
+  updateContext() {
+  	this.spotifyService.getCurrentlyPlaying().then(x => this.playContext = x);
   }
 
 }

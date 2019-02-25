@@ -15,7 +15,7 @@ export class HomeViewComponent implements OnInit {
   constructor(private spotifyService: SpotifyService) { }
 
   ngOnInit() {
-  	this.user = this.getMe();
+  	this.getMe().then(me => this.user=me);
   	this.expiryDate = this.getCurrentToken();
   }
 

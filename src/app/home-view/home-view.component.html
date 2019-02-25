@@ -4,5 +4,10 @@
 <app-home-buildings></app-home-buildings>
 
 <button (click)=authorize()>Spotify Authorization</button>
-{{user}}
-{{expiryDate}}
+<div *ngIf="user">
+Logged in as {{user["display_name"]}}
+<div></div>
+Token expires at {{expiryDate.toLocaleTimeString()}}
+</div>
+
+<app-spotify-player *ngIf="user"></app-spotify-player>
