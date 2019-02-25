@@ -71,5 +71,14 @@ export class SpotifyService {
     return this.spotifyApi.getMyCurrentPlaybackState();
   }
 
+  getSong(id: string) {
+
+  }
+
+  setSong(id: string) {
+    let track = "spotify:track:" + id;
+    return this.spotifyApi.play({uris: [track]});
+  }
+
 
 }

@@ -18,6 +18,7 @@ import { BuildingTileComponent } from './building-tile/building-tile.component';
 import { UserDisplayComponent } from './user-display/user-display.component';
 import { CallbackComponent } from './callback/callback.component';
 import { SpotifyPlayerComponent } from './spotify-player/spotify-player.component';
+import { SpotifySongSelectorComponent } from './spotify-song-selector/spotify-song-selector.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SpotifyPlayerComponent } from './spotify-player/spotify-player.componen
     BuildingTileComponent,
     UserDisplayComponent,
     CallbackComponent,
-    SpotifyPlayerComponent
+    SpotifyPlayerComponent,
+    SpotifySongSelectorComponent
   ],
   imports: [
     NgxsModule.forRoot([TileState]),
