@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { RouterModule, Routes } from '@angular/router';
 
+import { HttpClientModule } from '@angular/common/http';
+import { OAuthModule } from 'angular-oauth2-oidc';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeBoardComponent } from './home-board/home-board.component';
@@ -13,6 +16,8 @@ import {NgxsModule} from '@ngxs/store';
 import {TileState} from './store/game.state';
 import { BuildingTileComponent } from './building-tile/building-tile.component';
 import { UserDisplayComponent } from './user-display/user-display.component';
+import { CallbackComponent } from './callback/callback.component';
+import { SpotifyPlayerComponent } from './spotify-player/spotify-player.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +27,17 @@ import { UserDisplayComponent } from './user-display/user-display.component';
     HomeViewComponent,
     BoardTileComponent,
     BuildingTileComponent,
-    UserDisplayComponent
+    UserDisplayComponent,
+    CallbackComponent,
+    SpotifyPlayerComponent
   ],
   imports: [
     NgxsModule.forRoot([TileState]),
     BrowserModule,
     AppRoutingModule,
-    DragDropModule
+    DragDropModule,
+    HttpClientModule,
+    OAuthModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
