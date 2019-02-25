@@ -15,6 +15,15 @@ export class BoardTileComponent implements OnInit {
   @Output() mouseupTile = new EventEmitter<Tile>();
   @Output() mouseoverTile = new EventEmitter<Tile>();
 
+  buildingList = [
+    '/assets/building0.png',
+    '/assets/building1.png',
+    '/assets/building2.png',
+    '/assets/building3.png',
+    '/assets/building4.png'
+  ];
+
+
 
   constructor() { }
 
