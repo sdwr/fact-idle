@@ -2,19 +2,22 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.
 
-To get https:// and spotify login working, add the localhost.crt file as a trusted certificate
-
 to do:
 	add "logged in as"
-	redirect from /callback to /home
-	add player component
+  add basic server integration
+  figure out timing/sync with server
 	
-
 ## Development server
+
+To get https:// and spotify login working, add the localhost.crt file as a trusted certificate
 
 Run `npm start` for a dev server.
 Navigate to `https://localhost:4200/`. 
 The app will automatically reload if you change any of the source files.
+
+Run server with `zero` in /zero_server.
+Install zero on command line separately with `npm install -g zero`
+Server should be running at `http://localhost:3000`.
 
 ## Code scaffolding
 
