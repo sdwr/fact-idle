@@ -16,7 +16,6 @@ export class CallbackComponent implements OnInit {
 
   ngOnInit() {
   	let fragment = this.route.snapshot.fragment;
-  	console.log(fragment);
   	let fragMap = this.parseUrlFragment(fragment);
 
   	this.spotifyService.authResponse(fragMap);

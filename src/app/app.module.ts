@@ -19,6 +19,8 @@ import { UserDisplayComponent } from './user-display/user-display.component';
 import { CallbackComponent } from './callback/callback.component';
 import { SpotifyPlayerComponent } from './spotify-player/spotify-player.component';
 import { SpotifySongSelectorComponent } from './spotify-song-selector/spotify-song-selector.component';
+import { SpotifySongSearchComponent } from './spotify-song-search/spotify-song-search.component';
+import { SpotifySongComponent } from './spotify-song/spotify-song.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { SpotifySongSelectorComponent } from './spotify-song-selector/spotify-so
     UserDisplayComponent,
     CallbackComponent,
     SpotifyPlayerComponent,
-    SpotifySongSelectorComponent
+    SpotifySongSelectorComponent,
+    SpotifySongSearchComponent,
+    SpotifySongComponent
   ],
   imports: [
     NgxsModule.forRoot([TileState]),

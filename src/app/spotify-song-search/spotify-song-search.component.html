@@ -1,0 +1,12 @@
+<div class="search-container">
+	Search for a track:
+	<input #searchText (keyup)="searchForSong(searchText.value)">
+	<div class="search-results">
+		<ul>
+			<li *ngFor="let song of searchResults">
+				<app-spotify-song [song]=song></app-spotify-song>
+			</li>
+		</ul>
+		
+	</div>
+</div>

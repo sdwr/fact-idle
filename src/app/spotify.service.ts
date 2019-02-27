@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import SpotifyWebApi from 'spotify-web-api-js';
 
+import { SpotifyTrack } from './models/spotifyTrack.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -78,6 +80,10 @@ export class SpotifyService {
   setSong(id: string) {
     let track = "spotify:track:" + id;
     return this.spotifyApi.play({uris: [track]});
+  }
+
+  searchForSong(searchText: string): Promise<any> {
+    return this.spotifyApi.searchTracks(searchText, {limit: 5});
   }
 
 
