@@ -5,13 +5,13 @@
 
 <button (click)=authorize()>Spotify Authorization</button>
 <div *ngIf="user">
-Logged in as {{user["display_name"]}}
-<div></div>
-Token expires at {{expiryDate.toLocaleTimeString()}}
+	Logged in as {{user["display_name"]}}
+	<div></div>
+	Token expires at {{expiryDate.toLocaleTimeString()}}
 </div>
 
 <div class="spotify-container" *ngIf="user">
 	<app-spotify-player></app-spotify-player>
-	<app-spotify-song-selector></app-spotify-song-selector>
+	<app-spotify-pending></app-spotify-pending>
 	<app-spotify-song-search></app-spotify-song-search>
 </div>
