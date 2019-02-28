@@ -24,8 +24,6 @@ export class HomeBoardComponent implements OnInit {
   }
 
   rightClickTile( tile: Tile): void {
-    tile.contains = 2;
-    this.gameService.updateTile(tile);
   }
 
   mousedownTile( tile: Tile): void {
@@ -36,13 +34,19 @@ export class HomeBoardComponent implements OnInit {
   mouseupTile( tile: Tile): void {
     if (this.path$.value.length > 1) {
       this.gameStateService.handlePath(this.path$.value);
+      this.gameStateService.resetPath();
+    } else {
+      let buildingId = this.gameStateService.getCurrentBuildingId();
+      if (buildingId) {
+        tile.contains = buildingId;
+        this.gameService.updateTile(tile);
+        this.gameStateService.setCurrentBuildingId(null);
+      }
     }
-
-    this.gameStateService.resetPath();
   }
 
   mouseoverTile( tile: Tile): void {
-    if (!this.path$.value.find(t => t === tile.id)) {
+    if (this.path$.value.length > 0 && !this.path$.value.find(t => t === tile.id)) {
       this.gameStateService.addToPath(tile.id);
     } 
   }

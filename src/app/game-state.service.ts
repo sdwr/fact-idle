@@ -11,10 +11,13 @@ import { take, map } from 'rxjs/operators';
 })
 export class GameStateService {
 
+  currentBuildingId: number;
+
   path$: BehaviorSubject<number[]>;
   tiles$: Observable<Tile[]>;
 
   constructor(private gameService: GameService) {
+    this.currentBuildingId = null;
     this.initTiles();
     this.initPath();
   }
@@ -97,6 +100,14 @@ export class GameStateService {
         img: "building4.png"}
     ];
     return of(mockBuildings);
+  }
+
+  getCurrentBuildingId() {
+    return this.currentBuildingId;
+  }
+
+  setCurrentBuildingId(id: number) { 
+    this.currentBuildingId = id;
   }
 
 }

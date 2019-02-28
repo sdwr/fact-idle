@@ -1,5 +1,8 @@
 <div class="building-tile-container">
 	<div class="building-tile-content building-tile-empty">
-		BUILDING #{{building.id}} ${{building.cost}}
+		 <img class="building-image" *ngIf="building" src={{buildingList[building.id]}}>
+	</div>
+	<div class="building-stats">
+		${{building.cost}} V{{building.moneyPerMinute}}
 	</div>
 </div>

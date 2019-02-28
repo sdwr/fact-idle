@@ -3,6 +3,9 @@
 <div style="height:20px"></div>
 <app-home-buildings></app-home-buildings>
 
+<div style="height:40px">
+</div>
+
 <button (click)=authorize()>Spotify Authorization</button>
 <div *ngIf="user">
 	Logged in as {{user["display_name"]}}

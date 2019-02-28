@@ -23,4 +23,8 @@ export class HomeBuildingsComponent implements OnInit {
   	this.buildings$ = this.gameStateService.getMockBuildings();
   }
 
+  mouseDownBuilding(building: Building) {
+    this.gameStateService.setCurrentBuildingId(building.id);
+  }
+
 }

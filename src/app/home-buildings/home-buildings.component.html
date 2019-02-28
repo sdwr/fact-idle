@@ -2,8 +2,8 @@
 	<div class="home-buildings-panel-inner">
 		<ng-container *ngIf="buildings$ | async as buildings">
 			<app-building-tile
-				*ngFor="let building of buildings; trackBy:building?.id" [building]="building">
-					
+				*ngFor="let building of buildings; trackBy:building?.id" [building]="building"
+				(mousedownBuilding)="mouseDownBuilding($event)">
 			</app-building-tile>
 		</ng-container>
 	</div>

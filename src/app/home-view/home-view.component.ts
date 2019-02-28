@@ -15,12 +15,12 @@ export class HomeViewComponent implements OnInit {
   constructor(private spotifyService: SpotifyService) { }
 
   ngOnInit() {
-  	this.getMe().then(me => this.user=me);
   	this.expiryDate = this.getCurrentToken();
   }
 
   authorize() {
   	this.spotifyService.authorize();
+    this.getMe().then(me => this.user=me);
   }
 
   getMe() {
