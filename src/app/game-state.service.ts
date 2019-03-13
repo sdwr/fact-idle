@@ -3,6 +3,7 @@ import {createTile} from './models/tile.model';
 import { Building} from './models/building.model';
 import { Tile } from './models/tile.model';
 import {GameService} from './store/game.service';
+import {UserStateService} from './user-state.service';
 import { Observable, BehaviorSubject, pipe, of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 
@@ -28,7 +29,7 @@ export class GameStateService {
   }
 
   mockTileData() {
-    return Array.from(Array(25).keys()).map(i => createTile(i, 0));
+    return Array.from(Array(25).keys()).map(i => createTile(i, -1));
   }
 
   initPath() {
@@ -73,15 +74,17 @@ export class GameStateService {
     let newTiles = tiles.map(t => {
       if (tileChangeDict[t.id]) {
         t = {...t}
-        t.contains = tiles.find(tile => tile.id === tileChangeDict[t.id]).contains;
+        let oldT = tiles.find(tile => tile.id === tileChangeDict[t.id]).contains;
+        t.contains = oldT;
       }
       return t;
     });
 
     newTiles.forEach(t => this.gameService.updateTile(t));
+    this.resetPath();
   }
 
-  getMockBuildings(): Observable<Building[]> {
+  getMockBuildings(): Building[] {
     let mockBuildings = [
       {id: 0, visible: true, cost: 5, 
         energyToMove: 5, moneyPerMinute: 2, energyPerMinute: 0,
@@ -99,7 +102,7 @@ export class GameStateService {
         energyToMove: 1, moneyPerMinute: 1, energyPerMinute: 10,
         img: "building4.png"}
     ];
-    return of(mockBuildings);
+    return mockBuildings;
   }
 
   getCurrentBuildingId() {
