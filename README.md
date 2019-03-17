@@ -3,13 +3,13 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.
 
 to do:
-	add "logged in as"
-  add basic server integration
-  figure out timing/sync with server
+	fix bug when drag path includes top left tile
 	
 ## Development server
 
 To get https:// and spotify login working, add the localhost.crt file as a trusted certificate
+note: readd '--ssl --ssl-key ./localhost.key  --ssl-cert ./localhost.crt' to npm start 
+for https, disabled for zero server websocket
 
 Run `npm start` for a dev server.
 Navigate to `https://localhost:4200/`. 

@@ -69,7 +69,6 @@ export class UserStateService {
     let buildings = this.gameStateService.getMockBuildings();
     let cost = buildings[buildingId].cost;
     let money = this.getMoney().value;
-    console.log(money, cost, buildingId, buildings);
     if (money >= cost) {
       this.money$.next(money - cost);
       return true;

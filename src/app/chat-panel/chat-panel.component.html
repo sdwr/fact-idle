@@ -1,0 +1,13 @@
+<div class="chat-panel">
+	<div class="chat-messages">
+		<ul>
+			<li *ngFor="let message of chatHistory$ | async">
+				{{message}}
+			</li>
+		</ul>
+	</div>
+
+	<div class="chat-input">
+		<input #chatInput (keyup.enter)="sendMessage(chatInput.value)">
+	</div>
+</div>
