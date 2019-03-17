@@ -5,13 +5,19 @@ import { GameStateService } from './game-state.service';
 import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 
+export interface User {
+  username: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserStateService {
 
-	money$: BehaviorSubject<number>
-	energy$: BehaviorSubject<number>
+  user: User;
+
+	money$: BehaviorSubject<number>;
+	energy$: BehaviorSubject<number>;
 
 	moneyPerMinute: number;
 	energyPerMinute: number;
@@ -24,8 +30,25 @@ export class UserStateService {
   constructor(private gameService: GameService,
               private gameStateService: GameStateService) {
   	this.time = moment();
+    this.username = null;
+    this.user = null;
   	this.initUser();
   	this.updateLoop();
+  }
+
+  getUser(): User {
+    return this.user;
+  }
+
+  setUser(username: string) {
+    this.user = {username};
+    this.getUserStats(this.username);
+    return this.user;
+  }
+
+  getUserStats(username: string) {
+    //get user stats from server
+    //gotta put money calc on server probably :()
   }
 
   initUser() {

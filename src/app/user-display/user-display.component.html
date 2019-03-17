@@ -1,9 +1,14 @@
-<div class="user-display-content">
-	<ng-container *ngIf="money$ | async as money">
-		${{money | number:'1.1-1'}}
-	</ng-container>
-	 ...... 
-	<ng-container *ngIf="energy$ | async as energy">
-		E{{energy | number:'1.1-1'}}
-	</ng-container>
+<div class="user-display-container">
+	<div class="user-display-user" *ngIf="currentUser">
+	Currently logged in as: {{currentUser.username}}
+	</div>
+	<div class="user-display-stats">
+		<ng-container *ngIf="money$ | async as money">
+			${{money | number:'1.1-1'}}
+		</ng-container>
+		 ...... 
+		<ng-container *ngIf="energy$ | async as energy">
+			E{{energy | number:'1.1-1'}}
+		</ng-container>
+	</div>
 </div>

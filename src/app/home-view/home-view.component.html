@@ -1,12 +1,17 @@
-<app-user-display></app-user-display>
-<app-home-board></app-home-board>
-<div style="height:20px"></div>
-<app-home-buildings></app-home-buildings>
+<div class="home-container">
 
-<div style="height:40px">
+	<div class="game-container">
+		<app-user-display></app-user-display>
+		<app-home-board></app-home-board>
+		<div style="height:20px"></div>
+		<app-home-buildings></app-home-buildings>
+	</div>
+
+	<div class="chat-container">
+		<app-chat-panel></app-chat-panel>
+	</div>
+
 </div>
-
-<app-chat-panel></app-chat-panel>
 
 <div class="spotify-container" *ngIf="false">
 	<button (click)=authorize()>Spotify Authorization</button>

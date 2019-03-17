@@ -10,12 +10,14 @@ import { UserStateService } from '../user-state.service';
 })
 export class UserDisplayComponent implements OnInit {
 
+  currentUser: User;
 	money$: Observable<number>;
 	energy$: Observable<number>;
 
   constructor(private userStateService: UserStateService) { }
 
   ngOnInit() {
+    this.currentUser = this.userStateService.getUser();
   	this.money$ = this.userStateService.getMoney();
   	this.energy$ = this.userStateService.getEnergy();
   }

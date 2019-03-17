@@ -1,4 +1,21 @@
 
+
+.home-container {
+	display: flex;
+	flex-direction: row;
+}
+
+.game-container {
+	height: 100%;
+}
+
+.chat-container {
+	padding-left:20px;
+}
+
+
+
+
 .spotify-container {
 	display: flex;
 }
