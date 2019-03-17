@@ -15,6 +15,15 @@ const wss = new WebSocket.Server({server});
 //---------------------
 let nextId = 1;
 let users = [];
+let userStates = {};
+
+function findUser(username) {
+	return users.find(u => u.username === username);
+}
+
+function findUserState(username) {
+	return userStates[username];
+}
 
 function genUserId() {
 	let id = nextId;
@@ -26,11 +35,12 @@ function createUser(username) {
 	if(!username || typeof(username) != "string") {
 		return null;
 	}
-	if(users.find(user => user.username === username)) {
+	if(findUser(username)) {
 		return null;
 	}
 	let newUser = {username: username, userId: genUserId()};
 	users.push(newUser);
+	userStates[username] = {};
 	return newUser;
 }
 
@@ -39,7 +49,7 @@ function createUser(username) {
 
 app.get('/users/:username', urlencodedParser, function getUser (req, res) {
 	let username = req.params.username;
-	let user = users.find(user => username === user.username);
+	let user = findUser(username);
 	if (user) {
 		res.send(user);
 		console.log(`returning existing user: ${JSON.stringify(user)}`);
@@ -56,7 +66,7 @@ app.get('/users/:username', urlencodedParser, function getUser (req, res) {
 
 
 app.post('/users', jsonParser, function postUser(req, res) {
-	let sentUser = req.body;
+	let sentUser = req.body.state;
 	if (!sentUser.username) {
 		res.status(400).send(`Must include username to create`);
 	} else {
@@ -69,6 +79,28 @@ app.post('/users', jsonParser, function postUser(req, res) {
 	}
 });
 
+
+app.get('/users/:username/state', urlencodedParser, function getUserState(req, res) {
+	let username = req.params.username;
+	let user = findUser(username);
+	if (user) {
+		res.send(findUserState(username));
+	} else {
+		res.status(400).send(`User ${username} does not exist`);
+	}
+});
+
+app.post('/users/:username/state', jsonParser, function setUserState(req, res) {
+	let sentState = req.body;
+	let username = req.params.username;
+	let user = findUser(username);
+	if (user) {
+		userStates[username] = sentState;
+		res.send(sentState);
+	} else {
+		res.status(500).send(`User ${username} does not exist`);
+	}
+});
 
 
 //setup websockets

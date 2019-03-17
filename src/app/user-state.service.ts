@@ -5,6 +5,7 @@ import { UserServerService } from './user-server.service';
 
 import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 export interface User {
   username: string;
@@ -40,17 +41,18 @@ export class UserStateService {
 
   tryLoginAs(username: string) {
     this.userServerService.getUserByName(username)
-      .subscribe(u => console.log(u));
+      .pipe(tap(u => this.setUser(u)))
+      .subscribe(u => console.log("logged in as %s", JSON.stringify(u)));
   }
 
   getUser(): User {
     return this.user;
   }
 
-  setUser(username: string) {
-    this.user = {username, userId: 0};
-    this.getUserStats(this.user.username);
-    return this.user;
+  setUser(user:any) {
+    if(user.username && user.userId) {
+      this.user = {username: user.username, userId: user.userId} as User;
+    }
   }
 
   getUserStats(username: string) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,18 @@ export class UserServerService {
   getUserByName(username: string) {
   	return this.http.get(this.serverPath + "/" + username);
   }
+
+  getUserState(username: string) {
+  	return this.http.get(this.serverPath + "/" + username + "/state");
+  }
+
+  setUserState(username: string, state: any) {
+  	let body = new HttpParams().set('state', state);
+  	let config = {headers: new HttpHeaders({'Content-Type': 'application/json' })};
+  	return this.http.post(this.serverPath + "/" + username + "/state", body, config);
+  }
+
+
 
 
 }
