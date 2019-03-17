@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(username: string) {
+    this.userStateService.tryLoginAs(username);
   	if (this.userStateService.setUser(username)) {
   		this.router.navigate(['/home']);
   	}

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { GameService } from './store/game.service';
 import { GameStateService } from './game-state.service';
+import { UserServerService } from './user-server.service';
 
 import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 
 export interface User {
   username: string;
+  userId: number;
 }
 
 @Injectable({
@@ -28,11 +30,17 @@ export class UserStateService {
   
 
   constructor(private gameService: GameService,
-              private gameStateService: GameStateService) {
+              private gameStateService: GameStateService,
+              private userServerService: UserServerService) {
   	this.time = moment();
     this.user = null;
   	this.initUser();
   	this.updateLoop();
+  }
+
+  tryLoginAs(username: string) {
+    this.userServerService.getUserByName(username)
+      .subscribe(u => console.log(u));
   }
 
   getUser(): User {
@@ -40,8 +48,8 @@ export class UserStateService {
   }
 
   setUser(username: string) {
-    this.user = {username};
-    this.getUserStats(this.username);
+    this.user = {username, userId: 0};
+    this.getUserStats(this.user.username);
     return this.user;
   }
 
