@@ -1,12 +1,19 @@
+const express = require('express');
+const http = require('http');
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({
-	port: 8080
-});
+const app = express();
+
+const server = http.createServer(app);
+
+const wss = new WebSocket.Server({server});
+
 
 
 let usersConnected = 0;
 let messages = [];
+//user object = {username: string}
+let users = [];
 
 wss.on('connection', function connections(ws) {
 	usersConnected++;
@@ -26,4 +33,8 @@ wss.on('connection', function connections(ws) {
 		console.log('disconnected: %s', ws);
 		console.log('%d users connected', usersConnected);
 	});
+});
+
+server.listen(8080, function init() {
+	console.log(`server started on port ${server.address().port}`);
 });

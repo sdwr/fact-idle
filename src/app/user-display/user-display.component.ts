@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { UserStateService } from '../user-state.service';
+import { UserStateService, User } from '../user-state.service';
 
 @Component({
   selector: 'app-user-display',

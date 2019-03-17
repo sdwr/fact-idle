@@ -10,9 +10,7 @@ export class WebSocketService {
 
   constructor() { 
   	this.ws = webSocket({url: "ws:localhost:8080"});
-  	this.ws.subscribe(x => {
-  		console.log(x);
-  	});
+  	this.ws.subscribe(x => {});
   }
 
   ngOnDestroy() {

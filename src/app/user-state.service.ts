@@ -30,7 +30,6 @@ export class UserStateService {
   constructor(private gameService: GameService,
               private gameStateService: GameStateService) {
   	this.time = moment();
-    this.username = null;
     this.user = null;
   	this.initUser();
   	this.updateLoop();
