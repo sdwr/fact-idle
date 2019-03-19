@@ -18,7 +18,7 @@ export class SpotifySongComponent implements OnInit {
   }
 
   setCurrentSong() {
-  	this.spotifyService.setSong(this.song.id);
+  	this.spotifyService.setSong(this.song.id, 0);
   }
 
 }

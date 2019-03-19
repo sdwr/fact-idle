@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const WebSocket = require('ws');
 
+let songModule = require('./song');
+
 const app = express();
 const jsonParser = bodyParser.json();
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -16,6 +18,9 @@ const wss = new WebSocket.Server({server});
 let nextId = 1;
 let users = [];
 let userStates = {};
+
+let usersConnected = 0;
+let messages = [];
 
 function findUser(username) {
 	return users.find(u => u.username === username);
@@ -46,6 +51,8 @@ function createUser(username) {
 
 //setup http endpoints
 //---------------------
+
+app.use('/song', songModule);
 
 app.get('/users/:username', urlencodedParser, function getUser (req, res) {
 	let username = req.params.username;
@@ -102,13 +109,15 @@ app.post('/users/:username/state', jsonParser, function setUserState(req, res) {
 	}
 });
 
+app.get('/chatHistory', urlencodedParser, function getChatHistory(req, res) {
+	res.send(messages);
+	console.log(`sent message history: ${messages}`);
+});
+
 
 //setup websockets
 //------------------------
-
-let usersConnected = 0;
-let messages = [];
-//user object = {username: string}
+//user object = {username: string, userId: number}
 
 wss.on('connection', function connections(ws) {
 	usersConnected++;
@@ -119,8 +128,8 @@ wss.on('connection', function connections(ws) {
 		console.log('received: %s', message);
 		messages.push(message);
 
-		ws.send(JSON.stringify(messages));
-		console.log('sent %s', messages.toString());
+		ws.send(JSON.stringify(message));
+		console.log('sent %s', message.toString());
 	});
 
 	ws.on('disconnect', function disconnect(ws) {

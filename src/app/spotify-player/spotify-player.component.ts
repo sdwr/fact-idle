@@ -25,7 +25,7 @@ export class SpotifyPlayerComponent implements OnInit {
   }
 
   updateContext() {
-  	this.spotifyService.getCurrentlyPlaying().then(x => this.playContext = x);
+  	//this.spotifyService.getCurrentlyPlaying().then(x => this.playContext = x);
   }
 
 }

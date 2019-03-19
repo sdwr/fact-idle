@@ -70,21 +70,19 @@ export class SpotifyService {
   }
 
   getCurrentlyPlaying() {
-    return this.spotifyApi.getMyCurrentPlaybackState();
+    //return this.spotifyApi.getMyCurrentPlaybackState();
   }
 
   getSong(id: string) {
 
   }
 
-  setSong(id: string) {
+  setSong(id: string, position_ms: number) {
     let track = "spotify:track:" + id;
-    return this.spotifyApi.play({uris: [track]});
+    return this.spotifyApi.play({uris: [track], position_ms});
   }
 
   searchForSong(searchText: string): Promise<any> {
     return this.spotifyApi.searchTracks(searchText, {limit: 5});
   }
-
-
 }

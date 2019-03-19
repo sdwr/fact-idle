@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable} from 'rxjs';
 import { HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
@@ -25,7 +26,8 @@ export class UserServerService {
   	return this.http.post(this.serverPath + "/" + username + "/state", body, config);
   }
 
-
-
+  getChatHistory() {
+  	return this.http.get("/chatHistory");
+  }
 
 }

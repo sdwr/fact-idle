@@ -6,7 +6,7 @@ to do:
 	fix bug when drag path includes top left tile
 	set one websocket per client, associate websocket to user
 	move board calc to server :() 
-	
+
 	
 ## Development server
 
@@ -21,6 +21,8 @@ The app will automatically reload if you change any of the source files.
 Run server with `zero` in /zero_server.
 Install zero on command line separately with `npm install -g zero`
 Server should be running at `http://localhost:3000`.
+
+run other server with node chat.js in /ws_server
 
 ## Code scaffolding
 
