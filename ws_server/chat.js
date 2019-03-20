@@ -128,11 +128,11 @@ wss.on('connection', function connections(ws) {
 		console.log('received: %s', message);
 		messages.push(message);
 
-		ws.send(JSON.stringify(message));
+		ws.send(JSON.stringify({type: 'chatMessage', body:message}));
 		console.log('sent %s', message.toString());
 	});
 
-	ws.on('disconnect', function disconnect(ws) {
+	ws.on('close', function disconnect(ws) {
 		usersConnected--;
 		console.log('disconnected: %s', ws);
 		console.log('%d users connected', usersConnected);

@@ -20,11 +20,27 @@ export class WebSocketService {
   						) {
   	this.getChatHistory();
   	this.ws = webSocket({url: "ws:localhost:8080"});
-  	this.ws.subscribe(message => this.addMessage(message));
+  	this.ws.subscribe(message => this.handleMessage(message));
   }
 
   ngOnDestroy() {
   	this.ws.complete();
+  }
+
+  handleMessage(message) {
+      let type = message.type;
+      let body = message.body;
+
+      if (type === 'chatMessage') {
+        this.addMessage(body);
+      } else if (type === 'songPlaying') {
+        this.startSong(body);
+      } else if (type === 'songAdded') {
+        this.addSongToQueue(body);
+      } else if (type === 'voteAdded') {
+        this.voteSong(body);
+      }
+
   }
 
   getChatHistory() {
