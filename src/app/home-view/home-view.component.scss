@@ -3,6 +3,8 @@
 .home-container {
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
+	max-width: 1000px;
 }
 
 .game-container {
@@ -11,11 +13,19 @@
 
 .chat-container {
 	padding-left:20px;
+	float: right;
 }
-
-
-
 
 .spotify-container {
 	display: flex;
+	flex-grow: 1;
+}
+
+.spotify-login-container {
+	justify-content: center;
+	flex-grow: 1;
+}
+
+.spotify-login-button {
+	
 }

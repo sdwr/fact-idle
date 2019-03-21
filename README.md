@@ -3,9 +3,12 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.
 
 to do:
-	fix bug when drag path includes top left tile
-	set one websocket per client, associate websocket to user
-	move board calc to server :() 
+	songs:
+		
+
+	board:
+		fix bug when drag path includes top left tile
+		move board calc to server :() 
 
 	
 ## Development server

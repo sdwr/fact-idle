@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SpotifyService } from '../spotify.service';
 
-import { SpotifyTrack } from '../models/spotifyTrack.model';
+import { Track } from '../dtos/track';
 
 @Component({
   selector: 'app-spotify-song-search',
@@ -10,7 +10,7 @@ import { SpotifyTrack } from '../models/spotifyTrack.model';
 })
 export class SpotifySongSearchComponent implements OnInit {
 
-	searchResults: SpotifyTrack[];
+	searchResults: Track[];
 
   constructor(private spotifyService: SpotifyService) { }
 
@@ -22,7 +22,5 @@ export class SpotifySongSearchComponent implements OnInit {
   	this.spotifyService.searchForSong(searchText)
   		.then(songs => this.searchResults = songs.tracks.items.slice(0,5));
   }
-
-
 
 }

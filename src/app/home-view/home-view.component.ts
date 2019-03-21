@@ -23,8 +23,8 @@ export class HomeViewComponent implements OnInit {
     if (!this.user) {
       this.router.navigate(['/login']);
     }
-    this.getMe().then(me => this.user=me);
-  	this.expiryDate = this.getCurrentToken();
+    //this.getMe().then(me => this.user=me);
+  	this.expiryDate = this.spotifyService.getTokenExpiry();
   }
 
   authorize() {
@@ -35,8 +35,8 @@ export class HomeViewComponent implements OnInit {
   	return this.spotifyService.getUser();
   }
 
-  getCurrentToken() {
-  	return this.spotifyService.getCurrentToken();
+  isLoggedInToSpotify() {
+  	return this.spotifyService.isLoggedInToSpotify();
   }
 
 }

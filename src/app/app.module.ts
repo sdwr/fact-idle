@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeBoardComponent } from './home-board/home-board.component';
 import { HomeBuildingsComponent } from './home-buildings/home-buildings.component';
@@ -45,6 +46,7 @@ import { LoginComponent } from './login/login.component';
     NgxsModule.forRoot([TileState]),
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     DragDropModule,
     HttpClientModule,
     OAuthModule.forRoot()

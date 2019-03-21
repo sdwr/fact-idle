@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Observable} from 'rxjs';
 import { WebSocketService } from '../websocket.service';
 
@@ -10,6 +11,7 @@ import { WebSocketService } from '../websocket.service';
 export class ChatPanelComponent implements OnInit {
 
 	chatHistory$: Observable<any>;
+  chatInput = new FormControl('');
 
   constructor(private webSocketService: WebSocketService) { }
 
@@ -19,6 +21,7 @@ export class ChatPanelComponent implements OnInit {
 
   sendMessage(message: string) {
   	this.webSocketService.sendMessage(message);
+    this.chatInput.setValue('');
   }
 
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { SpotifyService } from '../spotify.service';
 import { SongServerService } from '../song-server.service';
+import { WebSocketService } from '../websocket.service';
 
 @Component({
   selector: 'app-spotify-pending',
@@ -10,25 +12,15 @@ import { SongServerService } from '../song-server.service';
 })
 export class SpotifyPendingComponent implements OnInit {
 
-	pendingSongs: any;
+	pendingSongs: Observable<any[]>;
 
   constructor(private spotifyService: SpotifyService,
-  						private songServerService: SongServerService) {
-  	this.pendingSongs = [];
+  						private songServerService: SongServerService,
+              private webSocketService: WebSocketService) {
   }
 
   ngOnInit() {
-  	this.getNext();
+    this.pendingSongs = this.webSocketService.getSongQueue();
   }
-
-  getNext() {
-  	this.songServerService.getNextSongList()
-  		.subscribe(res => {
-  			this.pendingSongs = res;
-  			console.log(res);
-  		});
-  }
-
-
 
 }

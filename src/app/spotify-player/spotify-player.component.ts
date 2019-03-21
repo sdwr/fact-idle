@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SpotifyService } from '../spotify.service';
+import { WebSocketService } from '../websocket.service';
 
 @Component({
   selector: 'app-spotify-player',
@@ -13,19 +13,11 @@ export class SpotifyPlayerComponent implements OnInit {
 
 	playContext: any;
 
-  constructor(private spotifyService: SpotifyService) { }
+  constructor(private webSocketService: WebSocketService) { }
 
   ngOnInit() {
-  	this.updateLoop();
   }
 
-  updateLoop() {
-  	this.updateContext();
-  	setTimeout(() => this.updateLoop(), this.REFRESH_TIME);
-  }
 
-  updateContext() {
-  	//this.spotifyService.getCurrentlyPlaying().then(x => this.playContext = x);
-  }
 
 }

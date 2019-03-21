@@ -1,25 +1,26 @@
 <div class="home-container">
 
-	<div class="game-container">
+	<div class="game-container" *ngIf='false'>
 		<app-user-display></app-user-display>
 		<app-home-board></app-home-board>
 		<div style="height:20px"></div>
 		<app-home-buildings></app-home-buildings>
 	</div>
 
+	<div class="spotify-container">
+		<div class="spotify-login-container" *ngIf="!isLoggedInToSpotify()">
+			<button class="spotify-login-button" 
+							(click)=authorize()> Spotify Authorization</button>
+		</div>
+		<div class="spotify-game" *ngIf="isLoggedInToSpotify()">
+			<app-spotify-player></app-spotify-player>
+			<app-spotify-pending></app-spotify-pending>
+			<app-spotify-song-search></app-spotify-song-search>
+		</div>
+	</div>
+
 	<div class="chat-container">
 		<app-chat-panel></app-chat-panel>
 	</div>
 
-</div>
-
-<div class="spotify-container">
-	<button (click)=authorize()>Spotify Authorization</button>
-	<div *ngIf="user">
-		Logged in as {{user.username}}
-		<div></div>
-	</div>
-	<app-spotify-player></app-spotify-player>
-	<app-spotify-pending></app-spotify-pending>
-	<app-spotify-song-search></app-spotify-song-search>
 </div>

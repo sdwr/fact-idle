@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import SpotifyWebApi from 'spotify-web-api-js';
+import * as moment from 'moment';
 
-import { SpotifyTrack } from './models/spotifyTrack.model';
+import { Track } from './dtos/track';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class SpotifyService {
 	response_type: string;
 
   accessToken: string;
-  expiresAt: Date;
+  expiresAt: any;
 
   spotifyApi: any;
 
@@ -53,7 +54,8 @@ export class SpotifyService {
 
   	if (accessToken) {
       this.accessToken = accessToken;
-      this.expiresAt = new Date(Date.now() + (expiresIn*1000));
+      console.log(accessToken);
+      this.expiresAt = moment().add(expiresIn, 'seconds');
       this.spotifyApi.setAccessToken(this.accessToken);
 
     } else {
@@ -61,7 +63,11 @@ export class SpotifyService {
     }
   }
 
-  getCurrentToken() {
+  isLoggedInToSpotify(): boolean {
+    return this.expiresAt && moment().isBefore(this.expiresAt);
+  }
+
+  getTokenExpiry() {
     return this.expiresAt;
   }
 
@@ -70,16 +76,16 @@ export class SpotifyService {
   }
 
   getCurrentlyPlaying() {
-    //return this.spotifyApi.getMyCurrentPlaybackState();
+    return this.spotifyApi.getMyCurrentPlaybackState();
   }
 
   getSong(id: string) {
-
   }
 
-  setSong(id: string, position_ms: number) {
-    let track = "spotify:track:" + id;
-    return this.spotifyApi.play({uris: [track], position_ms});
+  setSong(track: Track, position_ms: number) {
+    if(this.accessToken) {
+      return this.spotifyApi.play({uris: [track.uri], position_ms});
+    }
   }
 
   searchForSong(searchText: string): Promise<any> {
