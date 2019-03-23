@@ -17,8 +17,17 @@
 }
 
 .spotify-container {
-	display: flex;
 	flex-grow: 1;
+}
+
+.spotify-game {
+	width: 100%;
+	display: flex;
+}
+
+.spotify-current-and-queue {
+	display: flex;
+	flex-direction: column;
 }
 
 .spotify-login-container {

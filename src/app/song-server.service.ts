@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
-import {SpotifyService} from './spotify.service';
 import {UserStateService} from './user-state.service';
 
 import { Track } from './dtos/track';
@@ -14,12 +13,14 @@ export class SongServerService {
 
 	serverPath = "/song";
 
+  currentSong$: BehaviorSubject<any>;
+
   constructor(private http: HttpClient,
-              private spotifyService: SpotifyService,
               private userStateService: UserStateService) { 
   }
 
 
+  //returns {track: Track, offset_ms: number, startTime: string}
   getSong() {
   	return this.http.get(this.serverPath + "/current");
   }

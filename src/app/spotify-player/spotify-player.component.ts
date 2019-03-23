@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment/moment';
+import {BehaviorSubject } from 'rxjs';
 
+import { SpotifyService } from '../spotify.service';
+import { SongServerService } from '../song-server.service';
 import { WebSocketService } from '../websocket.service';
+import { Track} from '../dtos/track';
 
 @Component({
   selector: 'app-spotify-player',
@@ -9,13 +14,42 @@ import { WebSocketService } from '../websocket.service';
 })
 export class SpotifyPlayerComponent implements OnInit {
 
-	readonly REFRESH_TIME = 5000;
+  UPDATE_MS = 10000;
 
-	playContext: any;
+  currentSong$: BehaviorSubject<any>;
+  syncWithSpotify: boolean;
 
-  constructor(private webSocketService: WebSocketService) { }
+	currentProgress: number;
+
+  constructor(private webSocketService: WebSocketService,
+              private spotifyService: SpotifyService,
+              private songServerService: SongServerService) { }
 
   ngOnInit() {
+    this.syncWithSpotify = this.spotifyService.getSync();
+    this.currentSong$ = this.webSocketService.getCurrentSong();
+    this.currentSong$.subscribe(x => console.log(x));
+    this.updateProgress();
+  }
+
+  updateProgress() {
+    this.songServerService.getSong().subscribe(songObj => this.currentProgress = this.percentComplete(songObj));
+    setTimeout((this) => {this.updateProgress()}, this.UPDATE_MS);
+  }
+
+  percentComplete(songObj: any) {
+    let track: Track = songObj.track;
+    let offset_ms: number = songObj.offset_ms;
+    let duration_ms: number = songObj.track.duration_ms;
+
+    let percentDone = offset_ms * 100.0 / duration_ms;
+    return percentDone;
+
+  }
+
+  setSync(event) {
+    this.spotifyService.setSync(event.checked);
+    this.syncWithSpotify = this.spotifyService.getSync();
   }
 
 

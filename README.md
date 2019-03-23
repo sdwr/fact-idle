@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 to do:
 	songs:
-		
+
 
 	board:
 		fix bug when drag path includes top left tile
@@ -46,3 +46,58 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Endpoint specs
+GET /users/:username
+returns {username: string, userId: number}
+
+POST /users/ accepts {state: {username: string}}
+returns {username: string, userId: number}
+
+GET /users/:username/state
+returns ??
+
+POST /users/:username/state ??
+??
+
+-- 
+
+GET /chatHistory
+returns [{message: string, username: string, timestamp: string}]
+
+--
+
+GET /song/current
+returns {track: Track, offset_ms: number, startTime: string}
+
+GET /song/pending
+returns [track: Track]
+
+POST /song/add {track: Track, user: {username: string, userId: number}}
+returns [track: Track]
+
+POST /song/choose {track: Track, user: {username: string, userId: number}}
+returns [track: Track]
+
+POST /song/vote/ {track: Track, user: {username: string, userId: number}, vote: number}
+returns [track: Track]
+
+
+
+## Websocket specs
+Server:
+{type: 'chatMessage', payload: {message: string, username: string, timestamp: string}}
+responds with same message
+
+Client:
+{type: 'chatMessage'}
+adds to message queue
+
+
+## Thoughts
+spotify state can stay on client, should cache locally
+user state can stay on client, but no server persistent state means
+server should trust client or client should try relog on load
+
+changing object specs is causing problems
+iron out what info is needed for each operation:

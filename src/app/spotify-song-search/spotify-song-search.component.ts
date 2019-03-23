@@ -19,8 +19,10 @@ export class SpotifySongSearchComponent implements OnInit {
   }
 
   searchForSong(searchText: string) {
-  	this.spotifyService.searchForSong(searchText)
-  		.then(songs => this.searchResults = songs.tracks.items.slice(0,5));
+    if(searchText && searchText != "") {
+      this.spotifyService.searchForSong(searchText)
+        .then(songs => this.searchResults = songs.tracks.items);
+    }
   }
 
 }

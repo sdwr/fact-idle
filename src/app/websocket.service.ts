@@ -16,9 +16,7 @@ export class WebSocketService {
 
 	private chatHistory$: BehaviorSubject<any[]>;
   private songQueue$: BehaviorSubject<any[]>;
-
-  private syncSongToServer: boolean;
-  private currentSong: any;
+  private currentSong$: BehaviorSubject<any>;
 
   private ws: WebSocketSubject<any>;
 
@@ -27,7 +25,6 @@ export class WebSocketService {
               private spotifyService: SpotifyService,
               private songServerService: SongServerService
   						) {
-    this.syncSongToServer = true;
     this.loadCurrentSong();
   	this.loadChatHistory();
     this.loadSongQueue();
@@ -49,7 +46,7 @@ export class WebSocketService {
   }
 
   getCurrentSong() {
-    return this.currentSong;
+    return this.currentSong$;
   }
 
   sendMessage(message: string) {
@@ -61,10 +58,6 @@ export class WebSocketService {
     }
     let payload = {username, message, timestamp};
     this.ws.next(this.buildSocketMessage(Constants.CHAT_MESSAGE, payload));
-  }
-
-  setSyncSongToServer(sync: boolean) {
-    this.syncSongToServer = sync;
   }
 
   //socketHandling
@@ -97,10 +90,13 @@ export class WebSocketService {
     this.chatHistory$.next(history);
   }
 
-  startSong(song) {
-    if (this.syncSongToServer) {
-      this.spotifyService.setSong(song, 0);
-    }
+  startSong(songObj) {
+    console.log(songObj);
+    let track = songObj.track;
+    let offset_ms = songObj.offset_ms;
+    let startTime = songObj.startTime;
+    this.currentSong$.next(songObj);
+    this.spotifyService.setSong(track, offset_ms);
   }
 
   updateSongQueue(queue) {
@@ -120,9 +116,13 @@ export class WebSocketService {
 
   //load initial state
   loadCurrentSong() {
-    if(this.syncSongToServer) {
-      let song = this.songServerService.getSong();
-    }
+    this.currentSong$ = new BehaviorSubject(null);
+    this.songServerService.getSong().subscribe(songObj => {
+      console.log("loading current song: " + songObj);
+      let track = songObj.track;
+      let offset_ms = songObj.offset_ms;
+      this.startSong(songObj);
+    });
   }
 
   loadChatHistory() {

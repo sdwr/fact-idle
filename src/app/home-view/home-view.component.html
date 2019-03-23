@@ -13,9 +13,14 @@
 							(click)=authorize()> Spotify Authorization</button>
 		</div>
 		<div class="spotify-game" *ngIf="isLoggedInToSpotify()">
-			<app-spotify-player></app-spotify-player>
-			<app-spotify-pending></app-spotify-pending>
-			<app-spotify-song-search></app-spotify-song-search>
+			<div class="spotify-current-and-queue">
+				<app-spotify-player></app-spotify-player>
+				<app-spotify-pending></app-spotify-pending>
+			</div>
+			<div class="spotify-find-song">
+				<app-spotify-song-search></app-spotify-song-search>
+				<app-spotify-drop-song></app-spotify-drop-song>
+			</div>
 		</div>
 	</div>
 

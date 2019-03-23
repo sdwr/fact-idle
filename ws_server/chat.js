@@ -101,7 +101,11 @@ function setCurrentSong(track, user) {
 	startTime = moment();
 	setTimeout(pickNewSong, track.duration_ms);
 
-	sendSocketMessage(SONG_PLAYING, track);
+	let offset_seconds = 0;
+	if (startTime) {
+		offset_seconds = moment().diff(startTime, 'seconds');
+	}
+	sendSocketMessage(SONG_PLAYING, {track: currentSong, offset_ms: offset_seconds * 1000, startTime});
 }
 
 function addSongToQueue(track, user) {
@@ -239,7 +243,12 @@ app.get('/song/current', urlencodedParser, function (req, res) {
 	if (startTime) {
 		offset_seconds = moment().diff(startTime, 'seconds');
 	}
-	res.send({track: currentSong, offset_ms: offset_seconds * 1000});
+	if (currentSong) {
+		res.send({track: currentSong, offset_ms: offset_seconds * 1000, startTime});
+		console.log(`sent current song ${currentSong}`);
+	} else {
+		res.status(500).send("No song currently running");
+	}
 });
 
 app.get('/song/pending', urlencodedParser, function (req, res) {
@@ -266,7 +275,7 @@ app.post('/song/choose', jsonParser, function (req, res) {
 	console.log(`user ${user.username} chose ${track.name} from the queue`);
 });
 
-app.post('/vote', jsonParser, function (req, res) {
+app.post('/song/vote', jsonParser, function (req, res) {
 	let track = req.body.track;
 	let user = req.body.user;
 	let vote = req.body.vote;

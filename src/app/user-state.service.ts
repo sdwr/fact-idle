@@ -42,7 +42,9 @@ export class UserStateService {
   tryLoginAs(username: string) {
     this.userServerService.getUserByName(username)
       .pipe(tap(u => this.setUser(u)))
-      .subscribe(u => console.log("logged in as %s", JSON.stringify(u)));
+      .subscribe(u => {
+        console.log("logged in as %s", JSON.stringify(u));
+      });
   }
 
   getUser(): User {

@@ -3,6 +3,7 @@ import { HttpParams, HttpClient } from '@angular/common/http';
 import SpotifyWebApi from 'spotify-web-api-js';
 import * as moment from 'moment';
 
+import { SongServerService } from './song-server.service';
 import { Track } from './dtos/track';
 
 @Injectable({
@@ -20,8 +21,11 @@ export class SpotifyService {
 
   spotifyApi: any;
 
+  syncWithSpotify: boolean;
 
-  constructor(private http: HttpClient) {
+
+  constructor(private http: HttpClient,
+              private songServerService: SongServerService) {
   	this.clientId = '4ab300b68542479483b2e9b509c8a31e';
   	this.redirectUri = 'https://localhost:4200/callback';
   	this.scope = 'user-modify-playback-state user-read-currently-playing user-read-playback-state';
@@ -30,7 +34,21 @@ export class SpotifyService {
     this.accessToken = null;
     this.expiresAt = null;
 
+    this.syncWithSpotify = false;
+
     this.spotifyApi = new SpotifyWebApi();
+
+    this.tryLoadToken();
+  }
+
+  tryLoadToken() {
+    let accessToken = localStorage.getItem("accessToken");
+    let expiresAt = localStorage.getItem("expiresAt");
+
+    if(accessToken && expiresAt) {
+      this.accessToken = accessToken;
+      this.expiresAt = expiresAt;
+    }
   }
 
   authorize() {
@@ -58,13 +76,16 @@ export class SpotifyService {
       this.expiresAt = moment().add(expiresIn, 'seconds');
       this.spotifyApi.setAccessToken(this.accessToken);
 
+      localStorage.setItem("accessToken", this.accessToken);
+      localStorage.setItem("expiresAt", this.expiresAt);
+
     } else {
       console.log("Error logging in to spotify: " + error);
     }
   }
 
   isLoggedInToSpotify(): boolean {
-    return this.expiresAt && moment().isBefore(this.expiresAt);
+    return this.accessToken && this.expiresAt && moment().isBefore(this.expiresAt);
   }
 
   getTokenExpiry() {
@@ -83,12 +104,27 @@ export class SpotifyService {
   }
 
   setSong(track: Track, position_ms: number) {
-    if(this.accessToken) {
+    if(this.accessToken && this.syncWithSpotify) {
       return this.spotifyApi.play({uris: [track.uri], position_ms});
     }
   }
 
   searchForSong(searchText: string): Promise<any> {
     return this.spotifyApi.searchTracks(searchText, {limit: 5});
+  }
+
+  setSync(sync: boolean) {
+    this.syncWithSpotify = sync;
+    if(sync) {
+      this.songServerService.getSong().subscribe(song => {
+        if (song.track) {
+          this.setSong(song.track, song.offset_ms);
+        }
+      });
+    }
+  }
+
+  getSync() {
+    return this.syncWithSpotify;
   }
 }

@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { RouterModule, Routes } from '@angular/router';
 
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSlideToggleModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +27,8 @@ import { SpotifySongComponent } from './spotify-song/spotify-song.component';
 import { SpotifyPendingComponent } from './spotify-pending/spotify-pending.component';
 import { ChatPanelComponent } from './chat-panel/chat-panel.component';
 import { LoginComponent } from './login/login.component';
+import { SpotifyDropSongComponent } from './spotify-drop-song/spotify-drop-song.component';
+import { SpotifyPendingSongComponent } from './spotify-pending-song/spotify-pending-song.component';
 
 @NgModule({
   declarations: [
@@ -40,11 +45,15 @@ import { LoginComponent } from './login/login.component';
     SpotifySongComponent,
     SpotifyPendingComponent,
     ChatPanelComponent,
-    LoginComponent
+    LoginComponent,
+    SpotifyDropSongComponent,
+    SpotifyPendingSongComponent
   ],
   imports: [
     NgxsModule.forRoot([TileState]),
     BrowserModule,
+    BrowserAnimationsModule,
+    MatSlideToggleModule,
     AppRoutingModule,
     ReactiveFormsModule,
     DragDropModule,
