@@ -48,6 +48,7 @@ export class SpotifyService {
     if(accessToken && expiresAt) {
       this.accessToken = accessToken;
       this.expiresAt = expiresAt;
+      this.spotifyApi.setAccessToken(this.accessToken);
     }
   }
 
