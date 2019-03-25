@@ -13,11 +13,9 @@ to do:
 	
 ## Development server
 
-To get https:// and spotify login working, add the localhost.crt file as a trusted certificate
-note: readd '--ssl --ssl-key ./localhost.key  --ssl-cert ./localhost.crt' to npm start 
-for https, disabled for zero server websocket
-
-Run `npm start` for a dev server.
+To get https:// and spotify login working locally, add the localhost.crt file as a trusted certificate
+Run `ng serve --proxy-config proxy.conf.json --ssl --ssl-key ./localhost.key  --ssl-cert ./localhost.crt`
+for a dev server.
 Navigate to `https://localhost:4200/`. 
 The app will automatically reload if you change any of the source files.
 

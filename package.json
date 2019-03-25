@@ -3,16 +3,24 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json --ssl --ssl-key ./localhost.key  --ssl-cert ./localhost.crt",
+    "run": "ng serve --proxy-config proxy.conf.json --ssl --ssl-key ./localhost.key  --ssl-cert ./localhost.crt",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --aot --prod"
+  },
+  "engines": {
+    "node": "8.11.3",
+    "npm": "5.6.0"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^7.2.10",
     "@angular/cdk": "^7.3.5",
+    "@angular/compiler-cli": "~7.2.0",
+    "@angular/cli": "~7.3.0",
     "@angular/common": "~7.2.0",
     "@angular/compiler": "~7.2.0",
     "@angular/core": "~7.2.0",
@@ -33,19 +41,19 @@
     "rxjs": "^6.3.3",
     "spotify-web-api-js": "^1.2.0",
     "tslib": "^1.9.0",
+    "typescript": "~3.2.2",
     "ws": "^6.2.0",
     "zero": "^1.0.7",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.13.0",
-    "@angular/cli": "~7.3.0",
-    "@angular/compiler-cli": "~7.2.0",
     "@angular/language-service": "~7.2.0",
-    "@types/node": "~8.9.4",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
     "codelyzer": "~4.5.0",
+    "enhanced-resolve": "^4.1.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.1.1",

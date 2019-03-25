@@ -43,7 +43,7 @@ export class SpotifyPlayerComponent implements OnInit {
         this.currentProgress = 0;
       }
     });
-    setTimeout((this) => {this.updateProgress()}, this.UPDATE_MS);
+    setTimeout(() => {this.updateProgress()}, this.UPDATE_MS);
   }
 
   percentComplete(songObj: any) {
