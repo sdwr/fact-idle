@@ -33,7 +33,7 @@
             "es5BrowserSupport": true
           },
           "configurations": {
-            "production": {
+            "dev": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",

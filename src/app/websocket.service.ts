@@ -30,7 +30,7 @@ export class WebSocketService {
     this.loadCurrentSong();
   	this.loadChatHistory();
     this.loadSongQueue();
-  	this.ws = webSocket({url: "ws:" + environment.webSocket});
+  	this.ws = webSocket({url: environment.webSocket});
   	this.ws.subscribe(message => this.handleMessage(message));
   }
 
