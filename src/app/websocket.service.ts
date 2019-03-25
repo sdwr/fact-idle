@@ -93,6 +93,7 @@ export class WebSocketService {
 
   handleError(error) {
     console.log("websocket error: " + error);
+    this.reopenSocket();
   }
 
   buildSocketMessage(type, payload) {
