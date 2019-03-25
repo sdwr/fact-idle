@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "run": "ng serve --proxy-config proxy.conf.json --ssl --ssl-key ./localhost.key  --ssl-cert ./localhost.crt",
-    "start": "node server.js",
+    "start": "node server.js --prod",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
