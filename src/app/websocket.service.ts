@@ -30,12 +30,22 @@ export class WebSocketService {
     this.loadCurrentSong();
   	this.loadChatHistory();
     this.loadSongQueue();
-  	this.ws = webSocket({url: environment.webSocket});
-  	this.ws.subscribe(message => this.handleMessage(message));
+    this.loadSocket();
   }
 
   ngOnDestroy() {
   	this.ws.complete();
+  }
+
+  loadSocket() {
+    this.ws = webSocket({url: environment.webSocket});
+    this.ws.subscribe(message => this.handleMessage(message), 
+      error => this.handleError(error), 
+      () => this.reopenSocket());
+  }
+
+  reopenSocket() {
+    this.loadSocket();
   }
 
   //for client use
@@ -79,6 +89,10 @@ export class WebSocketService {
       this.voteSong(payload);
     }
 
+  }
+
+  handleError(error) {
+    console.log("websocket error: " + error);
   }
 
   buildSocketMessage(type, payload) {
