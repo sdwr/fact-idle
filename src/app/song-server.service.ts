@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+import {environment} from '../environments/environment';
+
 import {UserStateService} from './user-state.service';
 
 import { Track } from './dtos/track';
@@ -14,7 +16,7 @@ import { PendingSong } from './dtos/pendingSong';
 })
 export class SongServerService {
 
-	serverPath = "/song";
+	serverPath = environment.serverUrl + "/song";
 
   currentSong$: BehaviorSubject<any>;
 

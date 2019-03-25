@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WebSocketSubject, webSocket } from 'rxjs/websocket';
+import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { BehaviorSubject} from 'rxjs';
 import * as moment from 'moment/moment';
 
