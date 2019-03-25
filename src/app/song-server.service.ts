@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import {UserStateService} from './user-state.service';
 
 import { Track } from './dtos/track';
+import { CurrentSong } from './dtos/currentSong';
+import { PendingSong } from './dtos/pendingSong';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +24,12 @@ export class SongServerService {
 
 
   //returns {track: Track, offset_ms: number, startTime: string}
-  getSong() {
-  	return this.http.get(this.serverPath + "/current");
+  getSong(): Observable<CurrentSong> {
+  	return this.http.get(this.serverPath + "/current") as Observable<CurrentSong>;
   }
 
-  getSongQueue() {
-  	return this.http.get(this.serverPath + "/pending");
+  getSongQueue(): Observable<PendingSong[]> {
+  	return this.http.get(this.serverPath + "/pending") as Observable<PendingSong[]>;
   }
 
   addSong(track: Track) {
@@ -42,6 +45,14 @@ export class SongServerService {
     let body = {track, user}
     let config = {headers: new HttpHeaders({'Content-Type': 'application/json' })};
   	return this.http.post(this.serverPath + "/choose/", body, config)
+      .subscribe();
+  }
+
+  unChooseSong(track: Track) {
+    let user = this.userStateService.getUser();
+    let body = {track, user}
+    let config = {headers: new HttpHeaders({'Content-Type': 'application/json' })};
+    return this.http.post(this.serverPath + "/choose/unchoose", body, config)
       .subscribe();
   }
 

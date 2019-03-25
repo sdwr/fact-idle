@@ -4,8 +4,6 @@ const http = require('http');
 const WebSocket = require('ws');
 const moment = require('moment');
 
-let songModule = require('./song');
-
 const app = express();
 const jsonParser = bodyParser.json();
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -23,7 +21,7 @@ const CHOOSE_SONG = 'chooseSong';
 
 //setup extra functions
 //---------------------
-
+let noop = function () {};
 let sockets = null;
 
 //user data
@@ -74,8 +72,8 @@ function createUser(username) {
 
 function pickNewSong() {
 	if(pendingSongs.length > 0) {
-		let newSong = removePendingSong();
-		setCurrentSong(newSong);
+		let newSongObj = removePendingSong();
+		setCurrentSong(newSongObj.track);
 	} else {
 		currentSong = null;
 		startTime = 0;
@@ -83,8 +81,8 @@ function pickNewSong() {
 }
 
 function addPendingSong(track) {
-	if (!pendingSongs.find(s => s.id === track.id)) {
-		pendingSongs.push(track);
+	if (!pendingSongs.find(s => s.track.id === track.id) && pendingSongs.length < 10) {
+		pendingSongs.push({track, chosenBy: [], score: 0});
 		sendSocketMessage(PENDING_SONGS, pendingSongs);
 	}
 }
@@ -94,6 +92,10 @@ function removePendingSong() {
 		pendingSongs = pendingSongs.slice(1);
 		sendSocketMessage(PENDING_SONGS, pendingSongs);
 		return newSong;
+}
+
+function sortPending() {
+	pendingSongs.sort((a,b) => b.score - a.score);
 }
 
 function setCurrentSong(track, user) {
@@ -117,7 +119,26 @@ function addSongToQueue(track, user) {
 }
 
 function chooseSong(track, user) {
+	let songObj = pendingSongs.find(s => s.track.id === track.id);
+	if (songObj && !songObj.chosenBy.find(u => u.userId === user.userId)) {
+		songObj.chosenBy.push(user);
+		songObj.score++;
+		sortPending();
+		sendSocketMessage(CHOOSE_SONG, pendingSongs);
+	}
+	return pendingSongs;
+}
 
+function unChooseSong(track, user) {
+	let songObj = pendingSongs.find(s => s.track.id === track.id);
+	if (songObj && songObj.chosenBy.find(u => u.userId === user.userId)) {
+		let userIndex = songObj.chosenBy.findIndex(u => u.userId === user.userId);
+		songObj.chosenBy.splice(userIndex, 1);
+		songObj.score--;
+		sortPending();
+		sendSocketMessage(CHOOSE_SONG, pendingSongs);
+	}
+	return pendingSongs;
 }
 
 function voteSong(track, user, vote) {
@@ -132,7 +153,7 @@ function voteSong(track, user, vote) {
 //
 
 function sendSocketMessage(type, payload) {
-	sockets.send(JSON.stringify({type:type, payload:payload}));
+	wss.clients.forEach((client) => client.send(JSON.stringify({type:type, payload:payload}), noop));
 	console.log('sent: %s', type);
 }
 
@@ -154,7 +175,6 @@ function handleSocketMessage(socketMessage) {
 
 wss.on('connection', function connections(ws) {
 	usersConnected++;
-	sockets = ws;
 	console.log('%d users connected', usersConnected);
 
 	ws.on('message', function incoming(message) {
@@ -247,7 +267,7 @@ app.get('/song/current', urlencodedParser, function (req, res) {
 		res.send({track: currentSong, offset_ms: offset_seconds * 1000, startTime});
 		console.log(`sent current song ${currentSong}`);
 	} else {
-		res.status(500).send("No song currently running");
+		res.send(null);
 	}
 });
 
@@ -273,6 +293,16 @@ app.post('/song/choose', jsonParser, function (req, res) {
 	res.send(pendingSongs);
 
 	console.log(`user ${user.username} chose ${track.name} from the queue`);
+});
+
+app.post('/song/choose/unchoose', jsonParser, function (req, res) {
+	let track = req.body.track;
+	let user = req.body.user;
+
+	unChooseSong(track, user);
+	res.send(pendingSongs);
+
+	console.log(`user ${user.username} unchose ${track.name} from the queue`);
 });
 
 app.post('/song/vote', jsonParser, function (req, res) {

@@ -28,12 +28,21 @@ export class SpotifyPlayerComponent implements OnInit {
   ngOnInit() {
     this.syncWithSpotify = this.spotifyService.getSync();
     this.currentSong$ = this.webSocketService.getCurrentSong();
-    this.currentSong$.subscribe(x => console.log(x));
+    this.currentSong$.subscribe(x => {
+      console.log(x);
+      this.currentProgress = 0;
+    });
     this.updateProgress();
   }
 
   updateProgress() {
-    this.songServerService.getSong().subscribe(songObj => this.currentProgress = this.percentComplete(songObj));
+    this.songServerService.getSong().subscribe(songObj => {
+      if(songObj && songObj.track) {
+        this.currentProgress = this.percentComplete(songObj);
+      } else {
+        this.currentProgress = 0;
+      }
+    });
     setTimeout((this) => {this.updateProgress()}, this.UPDATE_MS);
   }
 

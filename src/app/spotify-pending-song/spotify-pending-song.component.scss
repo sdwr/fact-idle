@@ -2,3 +2,18 @@
 	height:60px;
 	width:60px;
 }
+
+.pending-song-container {
+	border: 0.2em solid;
+	margin: 5px 0;
+	width: 250px;
+	display: flex;
+}
+
+.pending-song-unselected {
+	border-color: #bbb;
+}
+
+.pending-song-selected {
+	border-color: gold;
+}

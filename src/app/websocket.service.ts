@@ -103,10 +103,8 @@ export class WebSocketService {
     this.songQueue$.next(queue);
   }
 
-  chooseSong(song) {
-    let queue = this.songQueue$.value;
-    //find same song in queue, add vote
-    //gotta lock down song dto
+  chooseSong(payload) {
+    this.updateSongQueue(payload);
   }
 
   voteSong(song) {
@@ -119,9 +117,9 @@ export class WebSocketService {
     this.currentSong$ = new BehaviorSubject(null);
     this.songServerService.getSong().subscribe(songObj => {
       console.log("loading current song: " + songObj);
-      let track = songObj.track;
-      let offset_ms = songObj.offset_ms;
-      this.startSong(songObj);
+      if (songObj && songObj.track) {
+        this.startSong(songObj);
+      }
     });
   }
 

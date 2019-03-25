@@ -71,16 +71,16 @@ GET /song/current
 returns {track: Track, offset_ms: number, startTime: string}
 
 GET /song/pending
-returns [track: Track]
+returns [{track: Track, chosenBy:[{username: string, userId: number}], score: number]
 
 POST /song/add {track: Track, user: {username: string, userId: number}}
-returns [track: Track]
+returns [{track: Track, chosenBy:[{username: string, userId: number}], score: number]
 
 POST /song/choose {track: Track, user: {username: string, userId: number}}
-returns [track: Track]
+returns [{track: Track, chosenBy:[{username: string, userId: number}], score: number]
 
 POST /song/vote/ {track: Track, user: {username: string, userId: number}, vote: number}
-returns [track: Track]
+returns [{track: Track, chosenBy:[{username: string, userId: number}], score: number]
 
 
 

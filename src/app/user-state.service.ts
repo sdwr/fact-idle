@@ -7,10 +7,7 @@ import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 import {tap} from 'rxjs/operators';
 
-export interface User {
-  username: string;
-  userId: number;
-}
+import {User} from './dtos/user';
 
 @Injectable({
   providedIn: 'root'

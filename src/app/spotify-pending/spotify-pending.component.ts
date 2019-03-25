@@ -12,7 +12,7 @@ import { WebSocketService } from '../websocket.service';
 })
 export class SpotifyPendingComponent implements OnInit {
 
-	pendingSongs: Observable<any[]>;
+	pendingSongs$: Observable<any[]>;
 
   constructor(private spotifyService: SpotifyService,
   						private songServerService: SongServerService,
@@ -20,7 +20,7 @@ export class SpotifyPendingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pendingSongs = this.webSocketService.getSongQueue();
+    this.pendingSongs$ = this.webSocketService.getSongQueue();
   }
 
 }

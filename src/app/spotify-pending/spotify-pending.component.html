@@ -1,6 +1,6 @@
 <div class="pending-container">
 	Pending songs:
-	<div *ngFor="let song of pendingSongs | async">
-		<app-spotify-pending-song [track]="song"></app-spotify-pending-song>
+	<div *ngFor="let song of pendingSongs$ | async">
+		<app-spotify-pending-song [songObj]="song"></app-spotify-pending-song>
 	</div>
 </div>
