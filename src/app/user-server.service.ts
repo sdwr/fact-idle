@@ -29,7 +29,7 @@ export class UserServerService {
   }
 
   getChatHistory() {
-  	return this.http.get("/chatHistory");
+  	return this.http.get(this.serverPath + "/chatHistory");
   }
 
 }
