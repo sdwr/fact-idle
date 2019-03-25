@@ -1,0 +1,19 @@
+{
+	"/song/*": {
+		"target": "https://spotifight-server.herokuapp.com",
+		"secure": false,
+		"changeOrigin": true
+	},
+
+	"/users/*": {
+		"target": "https://spotifight-server.herokuapp.com",
+		"secure": false,
+		"changeOrigin": true
+	},
+
+	"/chatHistory/*": {
+		"target": "https://spotifight-server.herokuapp.com",
+		"secure": false,
+		"changeOrigin": true
+	}
+}
