@@ -317,6 +317,6 @@ app.post('/song/vote', jsonParser, function (req, res) {
 });
 
 //run server
-server.listen(8080, function init() {
+server.listen(process.env.PORT || 8080, function init() {
 	console.log(`server started on port ${server.address().port}`);
 });
