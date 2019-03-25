@@ -26,11 +26,7 @@ export class ChatPanelComponent implements OnInit {
   }
 
   scrollToBottom() {
-    try {
-      this.scrollable.nativeElement.scrollTop = this.scrollable.nativeElement.scrollHeight;
-    } catch (e) {
-      console.error(e);
-    }
+    //todo
   }
 
 }
