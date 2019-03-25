@@ -3,6 +3,8 @@ import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 import { BehaviorSubject} from 'rxjs';
 import * as moment from 'moment/moment';
 
+import {environment} from '../environments/environment';
+
 import { UserStateService } from './user-state.service';
 import { UserServerService } from './user-server.service';
 import { SpotifyService } from './spotify.service';
@@ -28,7 +30,7 @@ export class WebSocketService {
     this.loadCurrentSong();
   	this.loadChatHistory();
     this.loadSongQueue();
-  	this.ws = webSocket({url: "ws:localhost:8080"});
+  	this.ws = webSocket({url: "ws:" + environment.webSocket});
   	this.ws.subscribe(message => this.handleMessage(message));
   }
 
