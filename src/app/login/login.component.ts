@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserStateService } from '../user-state.service';
 
+import {environment} from '../../environments/environment';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,6 +15,7 @@ export class LoginComponent implements OnInit {
   						private router: Router) { }
 
   ngOnInit() {
+    console.log(environment);
   }
 
   login(username: string) {
