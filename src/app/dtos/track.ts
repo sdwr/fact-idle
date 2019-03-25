@@ -1,8 +1,8 @@
 export interface Track {
-	album: object;
-	artists: object[];
+	album: any;
+	artists: any[];
 	duration_ms: number;
-	external_urls: object[];
+	external_urls: any[];
 	id: string;
 	name: string;
 	popularity: number;
