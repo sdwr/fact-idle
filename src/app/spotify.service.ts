@@ -24,10 +24,12 @@ export class SpotifyService {
   syncWithSpotify: boolean;
 
 
+
+
   constructor(private http: HttpClient,
               private songServerService: SongServerService) {
   	this.clientId = '4ab300b68542479483b2e9b509c8a31e';
-  	this.redirectUri = 'https://localhost:4200/callback';
+  	this.redirectUri = window.location.origin + "/callback";
   	this.scope = 'user-modify-playback-state user-read-currently-playing user-read-playback-state';
   	this.response_type = 'token';
 
