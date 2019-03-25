@@ -17,11 +17,20 @@ export class ChatPanelComponent implements OnInit {
 
   ngOnInit() {
   	this.chatHistory$ = this.webSocketService.getAllMessages();
+    this.chatHistory$.subscribe(chat => this.scrollToBottom());
   }
 
   sendMessage(message: string) {
   	this.webSocketService.sendMessage(message);
     this.chatInput.setValue('');
+  }
+
+  scrollToBottom() {
+    try {
+      this.scrollable.nativeElement.scrollTop = this.scrollable.nativeElement.scrollHeight;
+    } catch (e) {
+      console.error(e);
+    }
   }
 
 }
