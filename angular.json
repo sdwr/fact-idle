@@ -67,6 +67,9 @@
           "configurations": {
             "production": {
               "browserTarget": "fact-idle:build:production"
+            },
+            "dev": {
+              "browserTarget": "fact-idle:build:dev"
             }
           }
         },
