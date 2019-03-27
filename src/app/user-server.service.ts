@@ -9,23 +9,32 @@ import {environment} from '../environments/environment';
 })
 export class UserServerService {
 
-	readonly serverPath = environment.serverUrl + "/users";
+	readonly userPath = environment.serverUrl + "/user";
+  readonly usersPath = environment.serverUrl + "/users";
 
   constructor(private http: HttpClient) {
   }
 
   getUserByName(username: string) {
-  	return this.http.get(this.serverPath + "/" + username);
+  	return this.http.get(this.userPath + "/" + username);
   }
 
   getUserState(username: string) {
-  	return this.http.get(this.serverPath + "/" + username + "/state");
+  	return this.http.get(this.userPath + "/" + username + "/state");
   }
 
   setUserState(username: string, state: any) {
   	let body = new HttpParams().set('state', state);
   	let config = {headers: new HttpHeaders({'Content-Type': 'application/json' })};
-  	return this.http.post(this.serverPath + "/" + username + "/state", body, config);
+  	return this.http.post(this.userPath + "/" + username + "/state", body, config);
+  }
+
+  getAllUsers() {
+    return this.http.get(this.usersPath + "/all");
+  }
+
+  getActiveUsers() {
+    return this.http.get(this.usersPath + "/online");
   }
 
   getChatHistory() {

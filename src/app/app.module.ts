@@ -29,6 +29,7 @@ import { ChatPanelComponent } from './chat-panel/chat-panel.component';
 import { LoginComponent } from './login/login.component';
 import { SpotifyDropSongComponent } from './spotify-drop-song/spotify-drop-song.component';
 import { SpotifyPendingSongComponent } from './spotify-pending-song/spotify-pending-song.component';
+import { UsersOnlineComponent } from './users-online/users-online.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SpotifyPendingSongComponent } from './spotify-pending-song/spotify-pend
     ChatPanelComponent,
     LoginComponent,
     SpotifyDropSongComponent,
-    SpotifyPendingSongComponent
+    SpotifyPendingSongComponent,
+    UsersOnlineComponent
   ],
   imports: [
     NgxsModule.forRoot([TileState]),

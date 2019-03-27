@@ -120,7 +120,7 @@ export class SpotifyService {
     this.syncWithSpotify = sync;
     if(sync) {
       this.songServerService.getSong().subscribe(song => {
-        if (song.track) {
+        if (song && song.track) {
           this.setSong(song.track, song.offset_ms);
         }
       });

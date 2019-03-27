@@ -26,8 +26,7 @@ export class ChatPanelComponent implements OnInit {
   }
 
   scrollToBottom() {
-    let element = document.getElementById("chat-messages");
-    element.scrollTop = element.scrollHeight;
+    //make this work
   }
 
 }

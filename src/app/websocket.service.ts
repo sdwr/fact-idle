@@ -20,6 +20,8 @@ export class WebSocketService {
   private songQueue$: BehaviorSubject<any[]>;
   private currentSong$: BehaviorSubject<any>;
 
+  private userList$: BehaviorSubject<any[]>;
+
   private ws: WebSocketSubject<any>;
 
   constructor(private userStateService: UserStateService,
@@ -30,6 +32,7 @@ export class WebSocketService {
     this.loadCurrentSong();
   	this.loadChatHistory();
     this.loadSongQueue();
+    this.loadUsers();
     this.loadSocket();
   }
 
@@ -61,6 +64,10 @@ export class WebSocketService {
     return this.currentSong$;
   }
 
+  getUserList() {
+    return this.userList$;
+  }
+
   sendMessage(message: string) {
     let username = null;
     let user = this.userStateService.getUser();
@@ -87,6 +94,8 @@ export class WebSocketService {
       this.chooseSong(payload);
     } else if (type === Constants.VOTE_SONG) {
       this.voteSong(payload);
+    } else if (type === Constants.UPDATE_USERS) {
+      this.updateUserList(payload);
     }
 
   }
@@ -129,6 +138,10 @@ export class WebSocketService {
     //how is current song going to be stored?
   }
 
+  updateUserList(payload) {
+    this.userList$.next(payload);
+  }
+
   //load initial state
   loadCurrentSong() {
     this.currentSong$ = new BehaviorSubject(null);
@@ -155,6 +168,15 @@ export class WebSocketService {
       .subscribe(queue => {
         console.log("loading song queue: " + queue);
         this.songQueue$.next(queue as any[]);
+      });
+  }
+
+  loadUsers() {
+    this.userList$ = new BehaviorSubject([]);
+    this.userServerService.getActiveUsers()
+      .subscribe(users => {
+        console.log("loading active user list: " + users);
+        this.userList$.next(users as any[]);
       });
   }
 

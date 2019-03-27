@@ -3,7 +3,10 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.
 
 to do:
-	songs:
+	keep list of active users by tying user to websocket
+	also tie user to spotify acct to get profile link + pic
+		might need to use server side tokens instead of client side auth
+	is long rebuild time new? check build before heroku setup
 
 
 	board:
@@ -46,16 +49,22 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## Endpoint specs
-GET /users/:username
+GET /users/all
+returns [{username: string, userId: number}]
+
+GET /users/online
+returns [{username: string, userId: number}]
+
+GET /user/:username
 returns {username: string, userId: number}
 
-POST /users/ accepts {state: {username: string}}
+POST /user/ accepts {state: {username: string}}
 returns {username: string, userId: number}
 
-GET /users/:username/state
+GET /user/:username/state
 returns ??
 
-POST /users/:username/state ??
+POST /user/:username/state ??
 ??
 
 -- 
