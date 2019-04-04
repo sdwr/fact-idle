@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { GameService } from './store/game.service';
 import { GameStateService } from './game-state.service';
-import { UserServerService } from './user-server.service';
+import { UserService } from './server/user.service';
 
-import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
-import {tap} from 'rxjs/operators';
-
 import {User} from './dtos/user';
 
 @Injectable({
@@ -29,34 +26,9 @@ export class UserStateService {
 
   constructor(private gameService: GameService,
               private gameStateService: GameStateService,
-              private userServerService: UserServerService) {
-  	this.time = moment();
-    this.user = null;
-  	this.initUser();
-  	this.updateLoop();
-  }
-
-  tryLoginAs(username: string) {
-    this.userServerService.getUserByName(username)
-      .pipe(tap(u => this.setUser(u)))
-      .subscribe(u => {
-        console.log("logged in as %s", JSON.stringify(u));
-      });
-  }
-
-  getUser(): User {
-    return this.user;
-  }
-
-  setUser(user:any) {
-    if(user.username && user.userId) {
-      this.user = {username: user.username, userId: user.userId} as User;
-    }
-  }
-
-  getUserStats(username: string) {
-    //get user stats from server
-    //gotta put money calc on server probably :()
+              private userService: UserService) {
+    this.initUser();
+    this.updateLoop();
   }
 
   initUser() {

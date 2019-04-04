@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { SongServerService } from '../song-server.service';
-import { UserStateService } from '../user-state.service';
+import { SongService } from '../server/song.service';
+import { UserService } from '../server/user.service';
 
 import {User} from '../dtos/user';
 import {Track} from '../dtos/track';
@@ -18,8 +18,8 @@ export class SpotifyPendingSongComponent implements OnInit {
 	chosenBy: any[];
 	score: number;
 
-  constructor(private songServerService: SongServerService,
-  						private userStateService: UserStateService) { }
+  constructor(private songService: SongService,
+  						private userService: UserService) { }
 
   ngOnInit() {
   	this.track = this.songObj.track;
@@ -28,16 +28,9 @@ export class SpotifyPendingSongComponent implements OnInit {
   }
 
   choosePending() {
-  	if (!this.isChosenByMe()) {
-  		this.songServerService.chooseSong(this.track);
-  	} else {
-  		this.songServerService.unChooseSong(this.track);
-  	}
   }
 
   isChosenByMe() {
-  	let user = this.userStateService.getUser();
-  	return !!this.chosenBy.find(u => u.userId === user.userId);
   }
 
 }

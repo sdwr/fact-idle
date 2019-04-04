@@ -3,7 +3,7 @@ import { HttpParams, HttpClient } from '@angular/common/http';
 import SpotifyWebApi from 'spotify-web-api-js';
 import * as moment from 'moment';
 
-import { SongServerService } from './song-server.service';
+import { SongServerService } from './server/song.service';
 import { Track } from './dtos/track';
 
 @Injectable({
@@ -27,7 +27,7 @@ export class SpotifyService {
 
 
   constructor(private http: HttpClient,
-              private songServerService: SongServerService) {
+              private songService: SongService) {
   	this.clientId = '4ab300b68542479483b2e9b509c8a31e';
   	this.redirectUri = window.location.origin + "/callback";
   	this.scope = 'user-modify-playback-state user-read-currently-playing user-read-playback-state';
@@ -119,7 +119,7 @@ export class SpotifyService {
   setSync(sync: boolean) {
     this.syncWithSpotify = sync;
     if(sync) {
-      this.songServerService.getSong().subscribe(song => {
+      this.songService.getSong().subscribe(song => {
         if (song && song.track) {
           this.setSong(song.track, song.offset_ms);
         }

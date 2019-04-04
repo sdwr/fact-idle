@@ -30,6 +30,7 @@ import { LoginComponent } from './login/login.component';
 import { SpotifyDropSongComponent } from './spotify-drop-song/spotify-drop-song.component';
 import { SpotifyPendingSongComponent } from './spotify-pending-song/spotify-pending-song.component';
 import { UsersOnlineComponent } from './users-online/users-online.component';
+import { RoomListComponent } from './room-list/room-list.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { UsersOnlineComponent } from './users-online/users-online.component';
     LoginComponent,
     SpotifyDropSongComponent,
     SpotifyPendingSongComponent,
-    UsersOnlineComponent
+    UsersOnlineComponent,
+    RoomListComponent
   ],
   imports: [
     NgxsModule.forRoot([TileState]),

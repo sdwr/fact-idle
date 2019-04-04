@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserStateService } from '../user-state.service';
+import { UserService } from '../server/user.service';
 
 import {environment} from '../../environments/environment';
 
@@ -11,7 +11,7 @@ import {environment} from '../../environments/environment';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private userStateService: UserStateService,
+  constructor(private userService: UserService,
   						private router: Router) { }
 
   ngOnInit() {
@@ -19,8 +19,17 @@ export class LoginComponent implements OnInit {
   }
 
   login(username: string) {
-    this.userStateService.tryLoginAs(username);
-    setTimeout(() => this.router.navigate(['/home']), 1000);
+    this.userService.loginFlow(username);
+    setTimeout(() => this.checkRoom, 2000);
+  }
+
+  checkRoom() {
+    let user = this.userService.user;
+    if(user && user.roomId) {
+      this.router.navigate(['/home']);
+    } else if (user) {
+      this.router.navigate(['/rooms']);
+    }
   }
 
 }

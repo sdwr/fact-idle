@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { SongServerService } from '../song-server.service';
+import { SongService } from '../server/song.service';
 import { Track } from '../dtos/track';
 
 @Component({
@@ -12,13 +12,13 @@ export class SpotifySongComponent implements OnInit {
 
 	@Input() song: Track;
 
-  constructor(private songServerService: SongServerService) { }
+  constructor(private songService: SongService) { }
 
   ngOnInit() {
   }
 
   setCurrentSong() {
-  	this.songServerService.addSong(this.song);
+  	this.songService.addSong(this.song);
   }
 
 }

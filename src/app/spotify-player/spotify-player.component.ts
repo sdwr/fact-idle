@@ -3,7 +3,7 @@ import * as moment from 'moment/moment';
 import {BehaviorSubject } from 'rxjs';
 
 import { SpotifyService } from '../spotify.service';
-import { SongServerService } from '../song-server.service';
+import { SongService } from '../server/song.service';
 import { WebSocketService } from '../websocket.service';
 import { Track} from '../dtos/track';
 
@@ -23,7 +23,7 @@ export class SpotifyPlayerComponent implements OnInit {
 
   constructor(private webSocketService: WebSocketService,
               private spotifyService: SpotifyService,
-              private songServerService: SongServerService) { }
+              private songService: SongService) { }
 
   ngOnInit() {
     this.syncWithSpotify = this.spotifyService.getSync();
@@ -36,7 +36,7 @@ export class SpotifyPlayerComponent implements OnInit {
   }
 
   updateProgress() {
-    this.songServerService.getSong().subscribe(songObj => {
+    this.songService.getSong().subscribe(songObj => {
       if(songObj && songObj.track) {
         this.currentProgress = this.percentComplete(songObj);
       } else {

@@ -1,0 +1,8 @@
+<div class="room-list-container">
+	<div *ngFor="let room of rooms">
+		<div class="room-item" (click)=selectRoom(room)>
+			{{room.name}}
+			{{room.description}}
+	</div>
+
+</div>

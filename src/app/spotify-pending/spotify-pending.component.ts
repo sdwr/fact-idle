@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { SpotifyService } from '../spotify.service';
-import { SongServerService } from '../song-server.service';
+import { SongService } from '../server/song.service';
 import { WebSocketService } from '../websocket.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class SpotifyPendingComponent implements OnInit {
 	pendingSongs$: Observable<any[]>;
 
   constructor(private spotifyService: SpotifyService,
-  						private songServerService: SongServerService,
+  						private songService: SongService,
               private webSocketService: WebSocketService) {
   }
 

@@ -6,9 +6,9 @@ import * as moment from 'moment/moment';
 import {environment} from '../environments/environment';
 
 import { UserStateService } from './user-state.service';
-import { UserServerService } from './user-server.service';
+import { UserService } from './server/user.service';
 import { SpotifyService } from './spotify.service';
-import { SongServerService } from './song-server.service';
+import { SongService } from './server/song.service';
 import * as Constants from './constants/constants';
 
 @Injectable({
@@ -25,19 +25,22 @@ export class WebSocketService {
   private ws: WebSocketSubject<any>;
 
   constructor(private userStateService: UserStateService,
-  						private userServerService: UserServerService,
+  						private userService: UserService,
               private spotifyService: SpotifyService,
-              private songServerService: SongServerService
+              private songService: SongService
   						) {
     this.loadCurrentSong();
   	this.loadChatHistory();
     this.loadSongQueue();
     this.loadUsers();
+
     this.loadSocket();
   }
 
   ngOnDestroy() {
-  	this.ws.complete();
+    if (this.ws) {
+      this.ws.complete();
+    }
   }
 
   loadSocket() {
@@ -70,12 +73,12 @@ export class WebSocketService {
 
   sendMessage(message: string) {
     let username = null;
-    let user = this.userStateService.getUser();
+    let user = this.userService.user;
     let timestamp = moment();
     if (user) {
-      username = user.username;
+      username = user.name;
     }
-    let payload = {username, message, timestamp};
+    let payload = {name, message, timestamp};
     this.ws.next(this.buildSocketMessage(Constants.CHAT_MESSAGE, payload));
   }
 
@@ -145,7 +148,7 @@ export class WebSocketService {
   //load initial state
   loadCurrentSong() {
     this.currentSong$ = new BehaviorSubject(null);
-    this.songServerService.getSong().subscribe(songObj => {
+    this.songService.getSong().subscribe(songObj => {
       console.log("loading current song: " + songObj);
       if (songObj && songObj.track) {
         this.startSong(songObj);
@@ -155,7 +158,7 @@ export class WebSocketService {
 
   loadChatHistory() {
   	this.chatHistory$ = new BehaviorSubject([]);
-  	this.userServerService.getChatHistory()
+  	this.userService.getChatHistory()
   		.subscribe(history => {
   			console.log("loading chat history: "+ history);
   			this.chatHistory$.next(history as any[]);
@@ -164,7 +167,7 @@ export class WebSocketService {
 
   loadSongQueue() {
     this.songQueue$ = new BehaviorSubject([]);
-    this.songServerService.getSongQueue()
+    this.songService.getSongQueue()
       .subscribe(queue => {
         console.log("loading song queue: " + queue);
         this.songQueue$.next(queue as any[]);
@@ -173,7 +176,7 @@ export class WebSocketService {
 
   loadUsers() {
     this.userList$ = new BehaviorSubject([]);
-    this.userServerService.getActiveUsers()
+    this.userService.getActiveUsers()
       .subscribe(users => {
         console.log("loading active user list: " + users);
         this.userList$.next(users as any[]);

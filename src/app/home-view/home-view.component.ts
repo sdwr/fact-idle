@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SpotifyService } from '../spotify.service';
-import { UserStateService} from '../user-state.service';
+import { UserService} from '../server/user.service';
 
 @Component({
   selector: 'app-home-view',
@@ -15,15 +15,14 @@ export class HomeViewComponent implements OnInit {
 	expiryDate;
 
   constructor(private spotifyService: SpotifyService,
-              private userStateService: UserStateService,
+              private userService: UserService,
               private router: Router) { }
 
   ngOnInit() {
-    this.user = this.userStateService.getUser();
+    this.user = this.userService.user;
     if (!this.user) {
       this.router.navigate(['/login']);
     }
-    //this.getMe().then(me => this.user=me);
   	this.expiryDate = this.spotifyService.getTokenExpiry();
   }
 

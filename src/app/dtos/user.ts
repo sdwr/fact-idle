@@ -1,4 +1,5 @@
 export interface User {
-  username: string;
-  userId: number;
+  _id?: string;
+  name: string;
+  roomId?: string;
 }

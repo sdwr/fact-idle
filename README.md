@@ -50,21 +50,24 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Endpoint specs
 GET /users/all
-returns [{username: string, userId: number}]
+returns [{username: string, userId: number, spotifyProfile: ??}]
 
 GET /users/online
 returns [{username: string, userId: number}]
 
-GET /user/:username
-returns {username: string, userId: number}
+GET /user/:userId
+returns User
 
-POST /user/ accepts {state: {username: string}}
-returns {username: string, userId: number}
+GET /user/
+returns new User
 
-GET /user/:username/state
+POST /user/ accepts User}
+returns User
+
+GET /user/:userId/state
 returns ??
 
-POST /user/:username/state ??
+POST /user/:userId/state ??
 ??
 
 -- 
