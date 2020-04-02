@@ -2,7 +2,7 @@
 	<div id="chat-messages" class="chat-messages">
 		<div class="chat-list">
 			<div class="chat-message" *ngFor="let message of chatHistory$ | async">
-				{{message.username}}: {{message.message}}
+				{{message.user.username}}: {{message.message}}
 			</div>
 		</div>
 	</div>

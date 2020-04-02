@@ -25,7 +25,7 @@ export class UserStateService {
 	time: any;
 
   REFRESH_TIME = 5000;
-  
+
 
   constructor(private gameService: GameService,
               private gameStateService: GameStateService,
@@ -36,22 +36,12 @@ export class UserStateService {
   	this.updateLoop();
   }
 
-  tryLoginAs(username: string) {
-    this.userServerService.getUserByName(username)
-      .pipe(tap(u => this.setUser(u)))
-      .subscribe(u => {
-        console.log("logged in as %s", JSON.stringify(u));
-      });
-  }
-
   getUser(): User {
     return this.user;
   }
 
-  setUser(user:any) {
-    if(user.username && user.userId) {
-      this.user = {username: user.username, userId: user.userId} as User;
-    }
+  setUser(user: User) {
+    this.user = user;
   }
 
   getUserStats(username: string) {
@@ -64,7 +54,7 @@ export class UserStateService {
   	this.energy$ = new BehaviorSubject(50);
 
   	this.moneyPerMinute = 0;
-  	this.energyPerMinute = 10; 
+  	this.energyPerMinute = 10;
   }
 
   updateLoop() {
@@ -87,7 +77,7 @@ export class UserStateService {
     let uE = 0;
     tiles.forEach(t => {
       if (t.contains > -1) {
-        let b = buildings[t.contains]; 
+        let b = buildings[t.contains];
         uM += b.moneyPerMinute;
         uE += b.energyPerMinute;
       }

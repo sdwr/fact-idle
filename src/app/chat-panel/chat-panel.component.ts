@@ -21,7 +21,7 @@ export class ChatPanelComponent implements OnInit {
   }
 
   sendMessage(message: string) {
-  	this.webSocketService.sendMessage(message);
+  	this.webSocketService.sendChatMessage(message);
     this.chatInput.setValue('');
   }
 

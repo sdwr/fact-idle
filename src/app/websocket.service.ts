@@ -42,8 +42,8 @@ export class WebSocketService {
 
   loadSocket() {
     this.ws = webSocket({url: environment.webSocket});
-    this.ws.subscribe(message => this.handleMessage(message), 
-      error => this.handleError(error), 
+    this.ws.subscribe(message => this.handleMessage(message),
+      error => this.handleError(error),
       () => this.reopenSocket());
   }
 
@@ -68,15 +68,18 @@ export class WebSocketService {
     return this.userList$;
   }
 
-  sendMessage(message: string) {
-    let username = null;
-    let user = this.userStateService.getUser();
+  sendChatMessage(message: string) {
+    this.sendMessage(Constants.CHAT_MESSAGE, message);
+  }
+
+  sendChangeUsernameMessage(username: string) {
+    this.sendMessage(Constants.CHANGE_USERNAME, username);
+  }
+
+  sendMessage(type: string, message: string) {
     let timestamp = moment();
-    if (user) {
-      username = user.username;
-    }
-    let payload = {username, message, timestamp};
-    this.ws.next(this.buildSocketMessage(Constants.CHAT_MESSAGE, payload));
+    let payload = {user: this.userStateService.getUser(), message: message, timestamp};
+    this.ws.next(this.buildSocketMessage(type, payload));
   }
 
   //socketHandling
@@ -85,6 +88,7 @@ export class WebSocketService {
     let payload = message.payload;
 
     if (type === Constants.CHAT_MESSAGE) {
+      //{user: User, message: string}
       this.addMessage(payload);
     } else if (type === Constants.SONG_PLAYING) {
       this.startSong(payload);
@@ -96,6 +100,8 @@ export class WebSocketService {
       this.voteSong(payload);
     } else if (type === Constants.UPDATE_USERS) {
       this.updateUserList(payload);
+    } else if (type === Constants.GET_SELF) {
+      this.userStateService.setUser(payload)
     }
 
   }
@@ -109,15 +115,13 @@ export class WebSocketService {
     return {type, payload};
   }
 
-  addMessage(message) {
-    console.log(message);
+  addMessage(payload) {
     let history = this.chatHistory$.value;
-    history.push(message);
+    history.push({user: payload.user, message: payload.message});
     this.chatHistory$.next(history);
   }
 
   startSong(songObj) {
-    console.log(songObj);
     let track = songObj.track;
     let offset_ms = songObj.offset_ms;
     let startTime = songObj.startTime;
@@ -139,6 +143,7 @@ export class WebSocketService {
   }
 
   updateUserList(payload) {
+    console.log("user list is now:", payload);
     this.userList$.next(payload);
   }
 

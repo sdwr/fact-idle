@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserStateService } from '../user-state.service';
 
 import {environment} from '../../environments/environment';
+import {WebSocketService} from "../websocket.service";
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,7 @@ import {environment} from '../../environments/environment';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private userStateService: UserStateService,
+  constructor(private webSocketService: WebSocketService,
   						private router: Router) { }
 
   ngOnInit() {
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(username: string) {
-    this.userStateService.tryLoginAs(username);
+    this.webSocketService.sendChangeUsernameMessage(username);
     setTimeout(() => this.router.navigate(['/home']), 1000);
   }
 

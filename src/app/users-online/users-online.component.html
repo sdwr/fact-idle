@@ -1,6 +1,6 @@
 Users online:
 <div class="users-component">
 	<div class="user-item" *ngFor="let user of userList$ | async">
-		{{user.username}}
+		{{user.username ? user.username : "***"}}
 	</div>
 </div>

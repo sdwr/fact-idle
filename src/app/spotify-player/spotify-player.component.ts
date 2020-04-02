@@ -29,7 +29,6 @@ export class SpotifyPlayerComponent implements OnInit {
     this.syncWithSpotify = this.spotifyService.getSync();
     this.currentSong$ = this.webSocketService.getCurrentSong();
     this.currentSong$.subscribe(x => {
-      console.log(x);
       this.currentProgress = 0;
     });
     this.updateProgress();

@@ -99,6 +99,10 @@ export class SpotifyService {
     return this.spotifyApi.getMe();
   }
 
+  getDevices() {
+    return this.spotifyApi.getMyDevices();
+  }
+
   getCurrentlyPlaying() {
     return this.spotifyApi.getMyCurrentPlaybackState();
   }
@@ -118,6 +122,7 @@ export class SpotifyService {
 
   setSync(sync: boolean) {
     this.syncWithSpotify = sync;
+    console.log(this.getDevices());
     if(sync) {
       this.songServerService.getSong().subscribe(song => {
         if (song && song.track) {
