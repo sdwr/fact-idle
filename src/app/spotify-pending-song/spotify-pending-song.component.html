@@ -1,6 +1,5 @@
 <div class="pending-song-container pending-song-unselected"
-		 [ngClass]="{'pending-song-selected': isChosenByMe()}"
-			(click)="choosePending()">
+		 [ngClass]="{'pending-song-selected': isChosenByMe()}">
 	<img src={{track.album.images[0].url}} class="now-playing-img">
 	<div class="now-playing-side">
 		<div class="now-playing-name">
@@ -9,7 +8,10 @@
 		<div class="now-playing-artist">
 			{{track.artists[0].name}}
 		</div>
-		<div class="now-playing-score">
-			{{score}}
-	</div>
+  </div>
+  <div class="updoots">
+    <span style="align-content: end">{{score}}</span>
+    <button (click)="choosePending()">+</button>
+    <button (click)="unchoosePending()">-</button>
+  </div>
 </div>

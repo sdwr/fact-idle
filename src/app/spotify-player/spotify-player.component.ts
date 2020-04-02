@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment/moment';
 import {BehaviorSubject } from 'rxjs';
 
 import { SpotifyService } from '../spotify.service';
 import { SongServerService } from '../song-server.service';
-import { WebSocketService } from '../websocket.service';
 import { Track} from '../dtos/track';
+import {DataStreamService} from "../data-stream.service";
 
 @Component({
   selector: 'app-spotify-player',
@@ -21,13 +20,13 @@ export class SpotifyPlayerComponent implements OnInit {
 
 	currentProgress: number;
 
-  constructor(private webSocketService: WebSocketService,
+  constructor(private dataStreamService: DataStreamService,
               private spotifyService: SpotifyService,
               private songServerService: SongServerService) { }
 
   ngOnInit() {
     this.syncWithSpotify = this.spotifyService.getSync();
-    this.currentSong$ = this.webSocketService.getCurrentSong();
+    this.currentSong$ = this.dataStreamService.getCurrentSong();
     this.currentSong$.subscribe(x => {
       this.currentProgress = 0;
     });

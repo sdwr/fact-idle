@@ -1,23 +1,14 @@
-<mat-slide-toggle 
+<mat-slide-toggle
 		[checked]="syncWithSpotify"
 		(change)=setSync($event)>
 		Sync with Spotify
 </mat-slide-toggle>
 <div class="player-container" *ngIf="currentSong$ | async as currentSong">
-	<div *ngIf="currentSong && currentSong.track">
-		<img src={{currentSong.track.album.images[0].url}} class="now-playing-img">
-		<div class="now-playing-side">
-			<div class="now-playing-name">
-				{{currentSong.track.name}}
-			</div>
-			<div class="now-playing-artist">
-				{{currentSong.track.artists[0].name}}
-			</div>
-			<div class="now-playing-progress">
-				<div class="progress-bar" 
-					 [ngStyle]="{'width' : '' + currentProgress + '%'}">
-				</div>
-			</div>
-		</div>
-	</div>
+  <img src={{currentSong.track.album.images[0].url}} class="now-playing-img">
+  <div class="now-playing-side">{{currentSong.track.name}} ---- {{currentSong.track.artists[0].name}}</div>
+  <div class="now-playing-progress">
+    <div class="progress-bar"
+       [ngStyle]="{'width' : '' + currentProgress + '%'}">
+    </div>
+  </div>
 </div>

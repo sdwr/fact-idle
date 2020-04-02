@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
-import { BehaviorSubject} from 'rxjs';
 import * as moment from 'moment/moment';
 
 import {environment} from '../environments/environment';
@@ -10,24 +9,20 @@ import { UserServerService } from './user-server.service';
 import { SpotifyService } from './spotify.service';
 import { SongServerService } from './song-server.service';
 import * as Constants from './constants/constants';
+import {DataStreamService} from "./data-stream.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
 
-	private chatHistory$: BehaviorSubject<any[]>;
-  private songQueue$: BehaviorSubject<any[]>;
-  private currentSong$: BehaviorSubject<any>;
-
-  private userList$: BehaviorSubject<any[]>;
-
   private ws: WebSocketSubject<any>;
 
   constructor(private userStateService: UserStateService,
   						private userServerService: UserServerService,
               private spotifyService: SpotifyService,
-              private songServerService: SongServerService
+              private songServerService: SongServerService,
+              private dataStreamService: DataStreamService
   						) {
     this.loadCurrentSong();
   	this.loadChatHistory();
@@ -51,23 +46,6 @@ export class WebSocketService {
     this.loadSocket();
   }
 
-  //for client use
-  getAllMessages() {
-    return this.chatHistory$;
-  }
-
-  getSongQueue() {
-    return this.songQueue$;
-  }
-
-  getCurrentSong() {
-    return this.currentSong$;
-  }
-
-  getUserList() {
-    return this.userList$;
-  }
-
   sendChatMessage(message: string) {
     this.sendMessage(Constants.CHAT_MESSAGE, message);
   }
@@ -89,15 +67,11 @@ export class WebSocketService {
 
     if (type === Constants.CHAT_MESSAGE) {
       //{user: User, message: string}
-      this.addMessage(payload);
+      this.dataStreamService.addMessage(payload);
     } else if (type === Constants.SONG_PLAYING) {
       this.startSong(payload);
     } else if (type === Constants.PENDING_SONGS) {
-      this.updateSongQueue(payload);
-    } else if (type === Constants.CHOOSE_SONG) {
-      this.chooseSong(payload);
-    } else if (type === Constants.VOTE_SONG) {
-      this.voteSong(payload);
+      this.dataStreamService.setSongQueue(payload);
     } else if (type === Constants.UPDATE_USERS) {
       this.updateUserList(payload);
     } else if (type === Constants.GET_SELF) {
@@ -115,41 +89,25 @@ export class WebSocketService {
     return {type, payload};
   }
 
-  addMessage(payload) {
-    let history = this.chatHistory$.value;
-    history.push({user: payload.user, message: payload.message});
-    this.chatHistory$.next(history);
-  }
-
   startSong(songObj) {
     let track = songObj.track;
     let offset_ms = songObj.offset_ms;
     let startTime = songObj.startTime;
-    this.currentSong$.next(songObj);
+    this.dataStreamService.setCurrentSong(songObj);
     this.spotifyService.setSong(track, offset_ms);
   }
 
-  updateSongQueue(queue) {
-    this.songQueue$.next(queue);
-  }
-
   chooseSong(payload) {
-    this.updateSongQueue(payload);
-  }
-
-  voteSong(song) {
-    let s = song;
-    //how is current song going to be stored?
+    this.dataStreamService.setSongQueue(payload);
   }
 
   updateUserList(payload) {
     console.log("user list is now:", payload);
-    this.userList$.next(payload);
+    this.dataStreamService.setUserList(payload);
   }
 
   //load initial state
   loadCurrentSong() {
-    this.currentSong$ = new BehaviorSubject(null);
     this.songServerService.getSong().subscribe(songObj => {
       console.log("loading current song: " + songObj);
       if (songObj && songObj.track) {
@@ -159,29 +117,26 @@ export class WebSocketService {
   }
 
   loadChatHistory() {
-  	this.chatHistory$ = new BehaviorSubject([]);
   	this.userServerService.getChatHistory()
   		.subscribe(history => {
   			console.log("loading chat history: "+ history);
-  			this.chatHistory$.next(history as any[]);
+  			this.dataStreamService.setChatHistory(history as any[]);
   		});
   }
 
   loadSongQueue() {
-    this.songQueue$ = new BehaviorSubject([]);
     this.songServerService.getSongQueue()
       .subscribe(queue => {
         console.log("loading song queue: " + queue);
-        this.songQueue$.next(queue as any[]);
+        this.dataStreamService.setSongQueue(queue as any[]);
       });
   }
 
   loadUsers() {
-    this.userList$ = new BehaviorSubject([]);
     this.userServerService.getActiveUsers()
       .subscribe(users => {
         console.log("loading active user list: " + users);
-        this.userList$.next(users as any[]);
+        this.dataStreamService.setUserList(users as any[]);
       });
   }
 

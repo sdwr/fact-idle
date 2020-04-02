@@ -26,7 +26,6 @@ import { SpotifySongComponent } from './spotify-song/spotify-song.component';
 import { SpotifyPendingComponent } from './spotify-pending/spotify-pending.component';
 import { ChatPanelComponent } from './chat-panel/chat-panel.component';
 import { ChangeUsernameComponent } from './change-username/change-username.component';
-import { SpotifyDropSongComponent } from './spotify-drop-song/spotify-drop-song.component';
 import { SpotifyPendingSongComponent } from './spotify-pending-song/spotify-pending-song.component';
 import { UsersOnlineComponent } from './users-online/users-online.component';
 
@@ -46,7 +45,6 @@ import { UsersOnlineComponent } from './users-online/users-online.component';
     SpotifyPendingComponent,
     ChatPanelComponent,
     ChangeUsernameComponent,
-    SpotifyDropSongComponent,
     SpotifyPendingSongComponent,
     UsersOnlineComponent
   ],

@@ -17,3 +17,12 @@
 .pending-song-selected {
 	border-color: gold;
 }
+
+.updoots {
+  margin-left:auto;
+  display:flex;
+  flex-direction:column;
+  justify-content: space-between;
+  float:right;
+  height: 100%;
+}

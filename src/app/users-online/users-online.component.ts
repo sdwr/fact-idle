@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { WebSocketService } from '../websocket.service';
+import {DataStreamService} from "../data-stream.service";
 
 @Component({
   selector: 'app-users-online',
@@ -12,10 +12,10 @@ export class UsersOnlineComponent implements OnInit {
 
 	userList$: BehaviorSubject<any[]>;
 
-  constructor(private webSocketService: WebSocketService) { }
+  constructor(private dataStreamService: DataStreamService) { }
 
   ngOnInit() {
-  	this.userList$ = this.webSocketService.getUserList();
+  	this.userList$ = this.dataStreamService.getUserList();
   }
 
 }

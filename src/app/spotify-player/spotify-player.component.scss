@@ -1,29 +1,21 @@
 
 .player-container {
 	border: 0.2em solid #0b0;
-	width: 250px;
+  padding: 20px;
 	display:flex;
+  flex-direction: column;
+  align-content: center;
 
 }
 
 .now-playing-img {
-	height:60px;
-	width:60px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .now-playing-side {
-}
-
-.now-playing-name {
-	overflow:hidden;
-}
-
-.now-playing-artist {
-	overflow:hidden;
-}
-
-.now-playing-status {
-	
+  justify-content: center;
 }
 
 .now-playing-progress {

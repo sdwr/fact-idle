@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable} from 'rxjs';
-import { WebSocketService } from '../websocket.service';
+import {DataStreamService} from "../data-stream.service";
+import {WebSocketService} from "../websocket.service";
 
 @Component({
   selector: 'app-chat-panel',
@@ -13,10 +14,11 @@ export class ChatPanelComponent implements OnInit {
 	chatHistory$: Observable<any>;
   chatInput = new FormControl('');
 
-  constructor(private webSocketService: WebSocketService) { }
+  constructor(private dataStreamService: DataStreamService,
+              private webSocketService: WebSocketService) { }
 
   ngOnInit() {
-  	this.chatHistory$ = this.webSocketService.getAllMessages();
+  	this.chatHistory$ = this.dataStreamService.getChatHistory();
     this.chatHistory$.subscribe(chat => this.scrollToBottom());
   }
 

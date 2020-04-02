@@ -1,31 +1,9 @@
 <div class="screen">
   <div class="home-container">
-    <div class="game-container" *ngIf='false'>
-      <app-user-display></app-user-display>
-      <app-home-board></app-home-board>
-      <div style="height:20px"></div>
-      <app-home-buildings></app-home-buildings>
-    </div>
-
-    <div class="spotify-container">
-      <div class="spotify-login-container" *ngIf="!isLoggedInToSpotify()">
-        <button class="spotify-login-button"
-                (click)=authorize()> Spotify Authorization</button>
-      </div>
-      <div class="spotify-game" *ngIf="isLoggedInToSpotify()">
-        <div class="spotify-current-and-queue">
-          <app-spotify-player></app-spotify-player>
-          <app-spotify-pending></app-spotify-pending>
-        </div>
-        <div class="spotify-find-song">
-          <app-spotify-song-search></app-spotify-song-search>
-          <app-spotify-drop-song></app-spotify-drop-song>
-        </div>
-      </div>
-    </div>
-
+    <button class="spotify-login-button" (click)=authorize() *ngIf="!isLoggedInToSpotify()"> Spotify Authorization</button>
+    <app-spotify-song-search></app-spotify-song-search>
+    <app-spotify-player style="flex-grow:5"></app-spotify-player>
     <app-users-online></app-users-online>
-
     <div class="chat-container">
       <app-change-username></app-change-username>
       <div style="padding-top: 20px"></div>
@@ -33,4 +11,5 @@
     </div>
   </div>
 
+  <app-spotify-pending></app-spotify-pending>
 </div>

@@ -28,11 +28,11 @@ export class SpotifyPendingSongComponent implements OnInit {
   }
 
   choosePending() {
-  	if (!this.isChosenByMe()) {
   		this.songServerService.chooseSong(this.track);
-  	} else {
-  		this.songServerService.unChooseSong(this.track);
-  	}
+  }
+
+  unchoosePending() {
+    this.songServerService.unChooseSong(this.track);
   }
 
   isChosenByMe() {
