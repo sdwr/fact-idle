@@ -5,6 +5,7 @@ import * as moment from 'moment';
 
 import { SongServerService } from './song-server.service';
 import { Track } from './dtos/track';
+import UserDevice = SpotifyApi.UserDevice;
 
 @Injectable({
   providedIn: 'root'
@@ -103,6 +104,10 @@ export class SpotifyService {
     return this.spotifyApi.getMyDevices();
   }
 
+  playOnDevice(device:UserDevice) {
+    return this.spotifyApi.transferMyPlayback([device.id]);
+  }
+
   getCurrentlyPlaying() {
     return this.spotifyApi.getMyCurrentPlaybackState();
   }
@@ -122,11 +127,11 @@ export class SpotifyService {
 
   setSync(sync: boolean) {
     this.syncWithSpotify = sync;
-    console.log(this.getDevices());
     if(sync) {
       this.songServerService.getSong().subscribe(song => {
         if (song && song.track) {
-          this.setSong(song.track, song.offset_ms);
+          this.setSong(song.track, song.offset_ms)
+            .catch(_ => this.getDevices().then(devices => this.playOnDevice(devices.devices[0])).then(_ => this.setSong(song.track, song.offset_ms)));
         }
       });
     }

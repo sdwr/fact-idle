@@ -20,10 +20,6 @@ export class HomeViewComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.userStateService.getUser();
-    if (!this.user) {
-      this.router.navigate(['/login']);
-    }
-    //this.getMe().then(me => this.user=me);
   	this.expiryDate = this.spotifyService.getTokenExpiry();
   }
 

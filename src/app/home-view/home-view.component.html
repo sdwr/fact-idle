@@ -1,33 +1,36 @@
-<div class="home-container">
+<div class="screen">
+  <div class="home-container">
+    <div class="game-container" *ngIf='false'>
+      <app-user-display></app-user-display>
+      <app-home-board></app-home-board>
+      <div style="height:20px"></div>
+      <app-home-buildings></app-home-buildings>
+    </div>
 
-	<div class="game-container" *ngIf='false'>
-		<app-user-display></app-user-display>
-		<app-home-board></app-home-board>
-		<div style="height:20px"></div>
-		<app-home-buildings></app-home-buildings>
-	</div>
+    <div class="spotify-container">
+      <div class="spotify-login-container" *ngIf="!isLoggedInToSpotify()">
+        <button class="spotify-login-button"
+                (click)=authorize()> Spotify Authorization</button>
+      </div>
+      <div class="spotify-game" *ngIf="isLoggedInToSpotify()">
+        <div class="spotify-current-and-queue">
+          <app-spotify-player></app-spotify-player>
+          <app-spotify-pending></app-spotify-pending>
+        </div>
+        <div class="spotify-find-song">
+          <app-spotify-song-search></app-spotify-song-search>
+          <app-spotify-drop-song></app-spotify-drop-song>
+        </div>
+      </div>
+    </div>
 
-	<div class="spotify-container">
-		<div class="spotify-login-container" *ngIf="!isLoggedInToSpotify()">
-			<button class="spotify-login-button" 
-							(click)=authorize()> Spotify Authorization</button>
-		</div>
-		<div class="spotify-game" *ngIf="isLoggedInToSpotify()">
-			<div class="spotify-current-and-queue">
-				<app-spotify-player></app-spotify-player>
-				<app-spotify-pending></app-spotify-pending>
-			</div>
-			<div class="spotify-find-song">
-				<app-spotify-song-search></app-spotify-song-search>
-				<app-spotify-drop-song></app-spotify-drop-song>
-			</div>
-		</div>
-	</div>
-	
-	<app-users-online></app-users-online>
+    <app-users-online></app-users-online>
 
-	<div class="chat-container">
-		<app-chat-panel></app-chat-panel>
-	</div>
+    <div class="chat-container">
+      <app-change-username></app-change-username>
+      <div style="padding-top: 20px"></div>
+      <app-chat-panel></app-chat-panel>
+    </div>
+  </div>
 
 </div>

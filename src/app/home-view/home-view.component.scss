@@ -1,10 +1,13 @@
-
+.screen {
+  display: flex;
+  flex-flow:column;
+  height:100%;
+}
 
 .home-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	max-width: 1000px;
 }
 
 .game-container {
@@ -36,5 +39,5 @@
 }
 
 .spotify-login-button {
-	
+
 }
