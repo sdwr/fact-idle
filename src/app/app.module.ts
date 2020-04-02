@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { RouterModule, Routes } from '@angular/router';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,7 +25,7 @@ import { SpotifySongSearchComponent } from './spotify-song-search/spotify-song-s
 import { SpotifySongComponent } from './spotify-song/spotify-song.component';
 import { SpotifyPendingComponent } from './spotify-pending/spotify-pending.component';
 import { ChatPanelComponent } from './chat-panel/chat-panel.component';
-import { LoginComponent } from './login/login.component';
+import { ChangeUsernameComponent } from './change-username/change-username.component';
 import { SpotifyDropSongComponent } from './spotify-drop-song/spotify-drop-song.component';
 import { SpotifyPendingSongComponent } from './spotify-pending-song/spotify-pending-song.component';
 import { UsersOnlineComponent } from './users-online/users-online.component';
@@ -46,7 +45,7 @@ import { UsersOnlineComponent } from './users-online/users-online.component';
     SpotifySongComponent,
     SpotifyPendingComponent,
     ChatPanelComponent,
-    LoginComponent,
+    ChangeUsernameComponent,
     SpotifyDropSongComponent,
     SpotifyPendingSongComponent,
     UsersOnlineComponent
