@@ -4,7 +4,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSlideToggleModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +27,7 @@ import { ChatPanelComponent } from './chat-panel/chat-panel.component';
 import { ChangeUsernameComponent } from './change-username/change-username.component';
 import { SpotifyPendingSongComponent } from './spotify-pending-song/spotify-pending-song.component';
 import { UsersOnlineComponent } from './users-online/users-online.component';
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -52,7 +52,7 @@ import { UsersOnlineComponent } from './users-online/users-online.component';
     NgxsModule.forRoot([TileState]),
     BrowserModule,
     BrowserAnimationsModule,
-    MatSlideToggleModule,
+    MatButtonModule,
     AppRoutingModule,
     ReactiveFormsModule,
     DragDropModule,

@@ -35,4 +35,8 @@ export class HomeViewComponent implements OnInit {
   	return this.spotifyService.isLoggedInToSpotify();
   }
 
+  trySync(event) {
+    this.spotifyService.trySync();
+  }
+
 }

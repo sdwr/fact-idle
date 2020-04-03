@@ -3,23 +3,20 @@
 	width: 300px;
   display: flex;
   flex-direction: column;
+  height:100%;
 
 	.chat-messages {
 		overflow-y: scroll;
 		overflow-x: hidden;
-		min-height: 400px;
     flex-grow: 1;
 		border: solid 1px;
+    margin-top: 5px;
 
-		.chat-list {
-			margin-top: 5px;
-
-			.chat-message {
-				overflow-wrap: break-word;
-				margin-right: 5px;
-				margin-left: 5px;
-			}
-		}
+    .chat-message {
+      overflow-wrap: break-word;
+      margin-right: 5px;
+      margin-left: 5px;
+    }
 	}
 
 	.chat-input {

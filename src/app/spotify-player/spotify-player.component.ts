@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {BehaviorSubject } from 'rxjs';
 
-import { SpotifyService } from '../spotify.service';
 import { SongServerService } from '../song-server.service';
 import { Track} from '../dtos/track';
 import {DataStreamService} from "../data-stream.service";
@@ -16,16 +15,13 @@ export class SpotifyPlayerComponent implements OnInit {
   UPDATE_MS = 10000;
 
   currentSong$: BehaviorSubject<any>;
-  syncWithSpotify: boolean;
 
 	currentProgress: number;
 
   constructor(private dataStreamService: DataStreamService,
-              private spotifyService: SpotifyService,
               private songServerService: SongServerService) { }
 
   ngOnInit() {
-    this.syncWithSpotify = this.spotifyService.getSync();
     this.currentSong$ = this.dataStreamService.getCurrentSong();
     this.currentSong$.subscribe(x => {
       this.currentProgress = 0;
@@ -52,11 +48,6 @@ export class SpotifyPlayerComponent implements OnInit {
     let percentDone = offset_ms * 100.0 / duration_ms;
     return percentDone;
 
-  }
-
-  setSync(event) {
-    this.spotifyService.setSync(event.checked);
-    this.syncWithSpotify = this.spotifyService.getSync();
   }
 
 

@@ -1,24 +1,29 @@
 
 .player-container {
-	border: 0.2em solid #0b0;
-  padding: 20px;
+  padding: 5px;
 	display:flex;
-  flex-direction: column;
+  flex-direction: row;
   align-content: center;
 
 }
 
 .now-playing-img {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  height:60px;
+  width:60px;
+  margin: auto;
 }
 
-.now-playing-side {
-  justify-content: center;
+.track-info {
+  padding:10px;
+}
+
+.track-info-line {
+  flex-wrap: nowrap;
 }
 
 .now-playing-progress {
+  margin:auto;
 	border: 0.15em solid #bbf;
 	height: 1em;
 	width:100%;
@@ -27,5 +32,5 @@
 .progress-bar {
 	background-color: #bbf;
 	border: 0.1em solid transparent;
-	height: 0.75em;
+	height: 0.85em;
 }

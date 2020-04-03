@@ -1,15 +1,30 @@
 <div class="screen">
+  <div
+    style="text-align:center;padding-bottom:5px;
+border-bottom:1px;border-bottom-style:solid;">
+    Spotifight v0.2
+  </div>
+  <div style="padding-bottom:15px;"></div>
   <div class="home-container">
-    <button class="spotify-login-button" (click)=authorize() *ngIf="!isLoggedInToSpotify()"> Spotify Authorization</button>
-    <app-spotify-song-search></app-spotify-song-search>
-    <app-spotify-player style="flex-grow:5"></app-spotify-player>
-    <app-users-online></app-users-online>
+    <app-spotify-song-search style="border: 0.2em solid grey; margin-right:10px"></app-spotify-song-search>
+    <app-spotify-pending style="flex-grow:1;height:100%"></app-spotify-pending>
     <div class="chat-container">
-      <app-change-username></app-change-username>
-      <div style="padding-top: 20px"></div>
-      <app-chat-panel></app-chat-panel>
+      <app-users-online style="padding:10px;"></app-users-online>
+      <div style="display:flex; flex-direction:column; height:100%;">
+        <app-change-username></app-change-username>
+        <div style="padding-top: 20px"></div>
+        <app-chat-panel style="flex-grow:1"></app-chat-panel>
+      </div>
     </div>
   </div>
 
-  <app-spotify-pending></app-spotify-pending>
+  <button mat-raised-button color="primary" class="spotify-login-button" (click)=authorize() *ngIf="!isLoggedInToSpotify()"> Spotify Authorization</button>
+  <button mat-stroked-button
+          style="align-self: center"
+          color="primary"
+          [disabled]="this.spotifyService.syncedWithSpotify"
+          (click)=trySync($event)>
+    Sync with Spotify
+  </button>
+  <app-spotify-player></app-spotify-player>
 </div>

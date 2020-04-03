@@ -1,10 +1,8 @@
 <div class="chat-panel-container">
 	<div id="chat-messages" class="chat-messages">
-		<div class="chat-list">
-			<div class="chat-message" *ngFor="let message of chatHistory$ | async">
-				{{message.user.username}}: {{message.message}}
-			</div>
-		</div>
+    <div class="chat-message" *ngFor="let message of chatHistory$ | async">
+      {{message.user.username}}: {{message.message}}
+    </div>
 	</div>
 
 	<div class="chat-input">

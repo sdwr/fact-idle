@@ -22,7 +22,7 @@ export class SpotifyService {
 
   spotifyApi: any;
 
-  syncWithSpotify: boolean;
+  syncedWithSpotify: boolean;
 
 
 
@@ -37,7 +37,7 @@ export class SpotifyService {
     this.accessToken = null;
     this.expiresAt = null;
 
-    this.syncWithSpotify = false;
+    this.syncedWithSpotify = false;
 
     this.spotifyApi = new SpotifyWebApi();
 
@@ -116,8 +116,11 @@ export class SpotifyService {
   }
 
   setSong(track: Track, position_ms: number) {
-    if(this.accessToken && this.syncWithSpotify) {
-      return this.spotifyApi.play({uris: [track.uri], position_ms});
+    if(this.isLoggedInToSpotify()) {
+      return this.spotifyApi.play({uris: [track.uri], position_ms})
+        .catch(_ => this.getDevices().then(devices => this.playOnDevice(devices.devices[0])).then(_ => this.spotifyApi.play({uris: [track.uri], position_ms})))
+        .then(_ => this.syncedWithSpotify = true)
+        .catch(_ => this.syncedWithSpotify = false);
     }
   }
 
@@ -125,19 +128,15 @@ export class SpotifyService {
     return this.spotifyApi.searchTracks(searchText, {limit: 5});
   }
 
-  setSync(sync: boolean) {
-    this.syncWithSpotify = sync;
-    if(sync) {
+  trySync() {
       this.songServerService.getSong().subscribe(song => {
         if (song && song.track) {
-          this.setSong(song.track, song.offset_ms)
-            .catch(_ => this.getDevices().then(devices => this.playOnDevice(devices.devices[0])).then(_ => this.setSong(song.track, song.offset_ms)));
+          this.setSong(song.track, song.offset_ms);
         }
       });
-    }
   }
 
   getSync() {
-    return this.syncWithSpotify;
+    return this.syncedWithSpotify;
   }
 }
