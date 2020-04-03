@@ -31,12 +31,16 @@ export class HomeViewComponent implements OnInit {
   	return this.spotifyService.getUser();
   }
 
-  isLoggedInToSpotify() {
-  	return this.spotifyService.isLoggedInToSpotify();
-  }
-
   trySync(event) {
     this.spotifyService.trySync();
+  }
+
+  isLoggedInToSpotify() {
+    return this.spotifyService.isLoggedInToSpotify();
+  }
+
+  isSyncedWithSpotify() {
+    return this.spotifyService.syncedWithSpotify;
   }
 
 }

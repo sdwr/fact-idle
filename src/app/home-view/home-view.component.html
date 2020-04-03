@@ -22,7 +22,7 @@ border-bottom:1px;border-bottom-style:solid;">
   <button mat-stroked-button
           style="align-self: center"
           color="primary"
-          [disabled]="this.spotifyService.syncedWithSpotify"
+          [disabled]="isSyncedWithSpotify()"
           (click)=trySync($event)>
     Sync with Spotify
   </button>
