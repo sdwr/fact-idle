@@ -125,7 +125,7 @@ export class SpotifyService {
   }
 
   searchForSong(searchText: string): Promise<any> {
-    return this.spotifyApi.searchTracks(searchText, {limit: 5});
+    return this.spotifyApi.searchTracks(searchText);
   }
 
   trySync() {
